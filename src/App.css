@@ -1,39 +1,346 @@
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-float infinite 3s ease-in-out;
-  }
-}
-
-.App-header {
+.App-light-mode {
+  background-color: #efefef;
+  color: #212121;
   min-height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+.NavigationBar {
+  margin: 0;
+  padding: 0;
+  background-color: #212121 !important;
+  color: #efefef;
+  min-height: 10vh;
+}
+
+.Main {
+  margin: 0;
+  padding: 0;
+  min-height: 80vh;
+}
+
+.Border {
+  border-bottom: 1px solid #212121;
+}
+
+.Button {
+  background-color: #212121 !important;
+  border: none !important;
+  color: #efefef !important;
+  font-weight: bold !important;
+}
+
+.LogoutButton {
+  background-color: #212121 !important;
+  border: none !important;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+.bgColor {
+  background-color: #efefef !important;
+}
+
+.DeactivationLink {
+  color: firebrick;
+  float: right;
+}
+
+.EditLink {
+  float: right;
+  color: #212121;
+}
+
+.fontSize {
+  font-size: 0.9rem !important;
+}
+
+.centered {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+.ql-editor {
+  min-height: 330px;
+}
+
+.ContactLinks {
+  text-decoration: none;
+}
+
+.ContactFontSize {
+  font-size: 12px;
+}
+
+.IconFontSize {
+  font-size: 0.9rem;
+}
+
+.RemoveSpace {
+  padding:0 !important;
+  margin:0 !important;
+}
+
+.accordion {
+  background-color: #efefef !important;
+  color: #6c757d!important;
+  font-size: 12px;
+}
+
+.accordion-button {
+  background-color: #efefef !important;
+  color: #6c757d !important;
+  font-size: 14px !important;
+}
+
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #6c757d !important;
+}
+
+.NavLink {
+  display: block;
+  padding: 0.5rem 0rem;
+  margin: 0rem 0.5rem !important;
+  color: rgba(255, 255, 255, 0.55);
+  text-decoration: none;
+}
+
+.NavLink:hover {
+  color: rgba(255, 255, 255, 0.95);;
+}
+
+.Links {
+  float: right;
+  margin: 5px;
+}
+
+.Border {
+  border-bottom: 1px solid #212121;
+}
+
+.Button {
+  background-color: #212121 !important;
+  border: none !important;
+  color: #efefef !important;
+  font-weight: bold !important;
+}
+
+.CenterSearchBar {
+  justify-content: center;
+  align-items: center;
+}
+
+.Footer {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  bottom: 0;
+  color: #efefef;
+  min-height: 10vh;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.Registration {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
+}
+
+.ConfirmEmail {
+  min-width: 30vh !important;
+}
+
+.RegistrationButton {
+  background-color: #212121 !important;
+  color: #ededed !important;
+  border: none !important;
+  width: 100%;
+}
+
+.RegistrationHeading {
+  color:'#212121';
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.RegistrationLabel {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
+
+.instructions {
+  font-size: 0.75rem;
+  border-radius: 0.5rem;
+  background: #212121;
+  color: #ededed;
+  padding: 0.25rem;
+  position: relative;
+  bottom: -10px;
+}
+
+.instructions > svg {
+  margin-right: 0.25rem;
+}
+
+.offscreen {
+  position: absolute;
+  left: -9999px;
+}
+
+.hide {
+  display: none;
+}
+
+.valid {
+  color: limegreen;
+  margin-left: 0.25rem;
+}
+
+.invalid {
+  color: red;
+  margin-left: 0.25rem;
+}
+
+.errmsg {
+  background-color: lightpink;
+  color: firebrick;
+  font-weight: bold;
+  padding: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+input[type=checkbox] {
+  accent-color: #212121;
+}
+
+.SpinnerContainer {
+  position: relative;
+}
+
+.CenterSpinner {
+  margin: 0;
+  position: absolute;
+  top: 80%;
+  -ms-transform: translateY(100%);
+  transform: translateY(100%);
+}
+
+.JobStatsRow {
+  background-color: #212121;
+  color: #ededed;
+  min-height: 10vh;
+}
+
+.JobStatsColumns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.JobStatsCard {
+  background-color: #212121;
+  color: #ededed;
+}
+
+.JobStatsText {
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.Card {
+  border: 0 !important;
+}
+
+.JobCard {
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  margin: 0;
 }
 
-.App-link {
-  color: rgb(112, 76, 182);
+.JobCardHeader {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
 
-@keyframes App-logo-float {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(10px);
-  }
-  100% {
-    transform: translateY(0px);
-  }
+.JobCardImage {
+  width: 50px !important;
+  height: 50px;
+  border-radius: 50% !important;
+  margin-right: 5px;
+}
+
+.JobCardButton {
+  float: right;
+  background-color: #212121 !important;
+  border: none !important;
+  color: #efefef !important;
+  font-weight: bold !important;
+}
+
+.JobCardBadge {
+  color: #ededed !important;
+}
+
+.ModalButton {
+  float: right;
+  background-color: #212121 !important;
+  border: none !important;
+  color: #efefef !important;
+}
+
+.DeleteButton {
+  background-color: firebrick !important;
+  border: none !important;
+  color: #efefef !important;
+}
+
+.ButtonToLink {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: #069;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ButtonToLinkDanger {
+  background: none!important;
+  border: none;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: firebrick;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.ButtonToLinkDanger:hover {
+  color: firebrick !important;
+}
+
+.ButtonToLink:hover {
+  color: #069 !important;
 }
