@@ -154,6 +154,12 @@
   align-items: center;
 }
 
+.BaseLine {
+  display: flex;
+  justify-content: baseline;
+  align-items: baseline;
+}
+
 .Registration {
   display: flex;
   justify-content: center;
@@ -169,6 +175,12 @@
 .RegistrationButton {
   background-color: #212121 !important;
   color: #ededed !important;
+  border: none !important;
+  width: 100%;
+}
+
+.BackButton {
+  background-color: grey !important;
   border: none !important;
   width: 100%;
 }
@@ -325,15 +337,27 @@ input[type=checkbox] {
   cursor: pointer;
 }
 
-.ButtonToLinkDanger {
+.DeButton {
   background: none!important;
-  border: none;
+  border: none !important;
   padding: 0!important;
   /*optional*/
   font-family: arial, sans-serif;
   /*input has OS specific font-family*/
-  color: firebrick;
-  text-decoration: underline;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none !important;
+}
+
+.ButtonToLinkDanger {
+  background: none!important;
+  border: none !important;
+  padding: 0!important;
+  /*optional*/
+  font-family: arial, sans-serif;
+  /*input has OS specific font-family*/
+  color: firebrick !important;
+  text-decoration: underline !important;
   cursor: pointer;
 }
 
@@ -343,4 +367,19 @@ input[type=checkbox] {
 
 .ButtonToLink:hover {
   color: #069 !important;
+}
+
+.dropdown-menu {
+  background-color: #212529 !important;
+  color: #ededed !important;
+}
+
+.NavDropdownMenu {
+  background: #212529 !important;
+  color: rgba(255, 255, 255, 0.55) !important;
+  border-bottom: 1px solid #ededed !important;
+}
+
+.RemoveBorderBottom {
+  border-bottom: none !important;
 }
