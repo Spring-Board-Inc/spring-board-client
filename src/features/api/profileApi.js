@@ -52,6 +52,24 @@ export const profileApi = createApi({
                 body: rest
             }),
             invalidatesTags: ['Profile']
+        }),
+        uploadPhoto: builder.mutation({
+            query: (data) => ({
+                url: `/upload-photo/${data.id}`,
+                method: 'POST',
+                body: data.photoToUpload,
+                responseHandler: (res) => res.text()
+            }),
+            invalidatesTags: ['Profile']
+        }),
+        updatePhoto: builder.mutation({
+            query: (data) => ({
+                url: `/update-photo/${data.id}`,
+                method: 'PUT',
+                body: data.photoToUpload,
+                responseHandler: (res) => res.text()
+            }),
+            invalidatesTags: ['Profile']
         })
     })
 })
@@ -62,5 +80,7 @@ export const {
     useActivateMutation,
     useDeactivateMutation,
     useGetUsersQuery,
-    useEditAddressMutation
+    useEditAddressMutation,
+    useUploadPhotoMutation,
+    useUpdatePhotoMutation
 } = profileApi;

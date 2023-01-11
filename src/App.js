@@ -35,6 +35,8 @@ import EditEducation from './features/education/EditEducation';
 import EditExperience from './features/experience/EditExperience';
 import EditCertification from './features/certification/EditCertification';
 import EditSkill from './features/skill/EditSkill';
+import UploadPhoto from './features/profile/UploadPhoto';
+import UpdatePhoto from './features/profile/UpdatePhoto';
 
 function App() {
   return (
@@ -57,6 +59,8 @@ function App() {
             <Route path='change-password' element={<ChangePassword />}/>
             <Route path='profile/edit-names/:id' element={<EditNames />} />
             <Route path='profile/edit-address/:id' element={<EditAddress />} />
+            <Route path='profile/:id/upload-image' element={<UploadPhoto />} />
+            <Route path='profile/:id/update-image' element={<UpdatePhoto />} />
           </Route>
           { /* This route requires you to be an applicant */}
           <Route element={<RequireAuth allowedRoles={[ROLES.Applicant]} />}>

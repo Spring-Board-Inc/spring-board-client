@@ -1,6 +1,6 @@
 import { Container, Row, Col, Image, ListGroup, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { FaEdit } from 'react-icons/fa'
+import { FaEdit, FaMars, FaPlusSquare, FaVenus } from 'react-icons/fa';
 import { useGetUserProfileQuery } from "../api/profileApi";
 import { DUMMY_USER_PHOTO } from "../../helpers/Helpers";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -34,6 +34,14 @@ const Profile = () => {
             }
         }
   }, [error, from, isError, navigate, dispatch]);
+
+  const goToUpload = () => {
+    navigate(`${userId}/upload-image`, { replace: true })
+  }
+
+  const goToUpdate = () => {
+    navigate(`${userId}/update-image`, { replace: true })
+  }
   
   return (
     <Container className='py-5'>
@@ -46,13 +54,26 @@ const Profile = () => {
                   { isLoading ? <ProfileSkeleton /> :
                   <>
                   <Row className='p-2'>
-                    <Col sm={12} md={5} style={{minHeight: '10rem'}} className='centered'>
-                          <Image
-                            src= {photoUrl}
-                            fluid
-                            thumbnail
-                            alt="Profile Photo"
-                          />
+                    <Col sm={12} md={5} style={{minHeight: '10rem', position: 'relative'}} className='centered'>
+                        <Col sm={11} style={{ position: 'relative'}}>
+                            <Image
+                              src= {photoUrl}
+                              fluid
+                              thumbnail
+                              alt="Profile Photo"
+                            />
+                        </Col>
+                        <Col sm={1} style={{position: 'absolute', bottom: '20%', right: '30%'}}>
+                            { !profile?.PhotoUrl ? 
+                              <Button onClick={goToUpload} className='p-2' style={{ backgroundColor: '#212121', border: 'none', borderRadius: '50%', display: 'flex' }}>
+                                <FaPlusSquare /> 
+                              </Button>
+                              :
+                              <Button onClick={goToUpdate} className='p-2' style={{ backgroundColor: '#212121', border: 'none', borderRadius: '50%', display: 'flex' }}>
+                                <FaEdit color="white"/>
+                              </Button>
+                            }
+                        </Col>
                     </Col>
                     <Col sm={12} md={7} className='fontSize centered'>
                       <ListGroup variant="flush">
@@ -69,7 +90,7 @@ const Profile = () => {
                   <Row className='fontSize border-top p-2'>
                     <Col>
                       <ListGroup variant="flush">
-                        <ListGroup.Item className='bgColor'>{profile?.FirstName} {profile?.LastName} 
+                        <ListGroup.Item className='bgColor'>{profile?.FirstName} {profile?.LastName} { profile?.Gender === 'Female' ? <FaVenus color="#F55887"/> : <FaMars color="blue"/> }
                             <Link to={`edit-names/${profile?.Id}`} className='EditLink'>
                                 <FaEdit />
                             </Link>
