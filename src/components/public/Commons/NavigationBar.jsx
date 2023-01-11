@@ -1,5 +1,5 @@
 import { Navbar, Container, Nav, NavLink, Button, NavDropdown } from 'react-bootstrap';
-import { FaHome, FaUsers, FaUser, FaSignOutAlt, FaSignInAlt, FaUserPlus, FaGraduationCap, FaBriefcase, FaCogs, FaBookOpen, FaDashcube, FaBars } from 'react-icons/fa';
+import { FaHome, FaUsers, FaUser, FaSignOutAlt, FaSignInAlt, FaUserPlus, FaGraduationCap, FaBriefcase, FaCogs, FaBookOpen } from 'react-icons/fa';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../features/auth/authSlice';
@@ -28,28 +28,30 @@ const NavigationBar = () => {
                     </NavLink>
                 </Nav>
                 <Nav className='me-auto'>
-                    <NavDropdown title="DASHBOARD" id="navbarScrollingDropdown" className='NavLink'>
-                        <NavDropdown.Item className='NavDropdownMenu'>
-                            <NavLink eventKey={7} as={Link} to="/info/education">
-                                <FaGraduationCap /> Qualifications
-                            </NavLink>
-                        </NavDropdown.Item>
-                        <NavDropdown.Item className='NavDropdownMenu'>
-                            <NavLink eventKey={8} as={Link} to="/info/experience">
-                                <FaBriefcase /> Experiences
-                            </NavLink>
-                        </NavDropdown.Item>
-                        <NavDropdown.Item className='NavDropdownMenu'>
-                            <NavLink eventKey={9} as={Link} to="/info/skill">
-                                <FaCogs /> Skills
-                            </NavLink>
-                        </NavDropdown.Item>
-                        <NavDropdown.Item className='NavDropdownMenu RemoveBorderBottom'>
-                            <NavLink eventKey={10} as={Link} to="/info/certification">
-                                <FaBookOpen /> Certifications
-                            </NavLink>
-                        </NavDropdown.Item>
-                    </NavDropdown>
+                    { user && (
+                        <NavDropdown title="DASHBOARD" id="navbarScrollingDropdown" className='NavLink'>
+                            <NavDropdown.Item className='NavDropdownMenu'>
+                                <NavLink eventKey={7} as={Link} to="/info/education">
+                                    <FaGraduationCap /> Qualifications
+                                </NavLink>
+                            </NavDropdown.Item>
+                            <NavDropdown.Item className='NavDropdownMenu'>
+                                <NavLink eventKey={8} as={Link} to="/info/experience">
+                                    <FaBriefcase /> Experiences
+                                </NavLink>
+                            </NavDropdown.Item> 
+                            <NavDropdown.Item className='NavDropdownMenu'>
+                                <NavLink eventKey={9} as={Link} to="/info/skill">
+                                    <FaCogs /> Skills
+                                </NavLink>
+                            </NavDropdown.Item>
+                            <NavDropdown.Item className='NavDropdownMenu RemoveBorderBottom'>
+                                <NavLink eventKey={10} as={Link} to="/info/certification">
+                                    <FaBookOpen /> Certifications
+                                </NavLink>
+                            </NavDropdown.Item>
+                        </NavDropdown>
+                    )}
                 </Nav>
                 <Nav>
                     {user ? (<>

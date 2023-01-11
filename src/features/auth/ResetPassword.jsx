@@ -15,6 +15,10 @@ const ResetPassword = () => {
     const { email } = formData;
     const navigate = useNavigate();
 
+    const goBack = () => {
+        navigate(-1, { replace: true });
+    }
+
     useEffect(() => {
         if(isError){
             toast.error(error?.data?.Message)
@@ -67,12 +71,19 @@ const ResetPassword = () => {
                                 </Form.Group>
                             </Col>
                             <Col lg={12}>
-                                { isLoading ? 
-                                    <Button type="submit" className='RegistrationButton'>
-                                        <Spinners />
-                                    </Button> :
-                                    <Button type="submit" className='RegistrationButton'>Submit</Button>
-                                }
+                                <Row className="mb-3">
+                                    <Col sm={12} md={6} className='d-flex'>
+                                        <Button className="BackButton mb-1" onClick={goBack}>Back</Button>
+                                    </Col>
+                                    <Col sm={12} md={6} className='d-flex'>
+                                        { isLoading ? 
+                                            <Button type="submit" className='RegistrationButton mb-1' style={{ backgroundColor: '#212121', border: 'none'}} disabled>
+                                                <Spinners />
+                                            </Button> :
+                                            <Button type="submit" className='RegistrationButton mb-1' >Submit</Button>
+                                        }
+                                    </Col>
+                                </Row>
                             </Col>
                         </Row>
                     </Form>

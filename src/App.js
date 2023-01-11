@@ -37,6 +37,7 @@ import EditCertification from './features/certification/EditCertification';
 import EditSkill from './features/skill/EditSkill';
 import UploadPhoto from './features/profile/UploadPhoto';
 import UpdatePhoto from './features/profile/UpdatePhoto';
+import Apply from './features/job/Apply';
 
 function App() {
   return (
@@ -64,6 +65,7 @@ function App() {
           </Route>
           { /* This route requires you to be an applicant */}
           <Route element={<RequireAuth allowedRoles={[ROLES.Applicant]} />}>
+            <Route path='jobs/:id/apply' element={<Apply />} />
             <Route path='info' element={<UserInfo />}>
               <Route path="education" element={<Educations />} />
               <Route path='user-skill' element={<Skills />} />

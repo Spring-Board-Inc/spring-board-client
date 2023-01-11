@@ -1,24 +1,21 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap"
-import { FaPhotoVideo } from "react-icons/fa"
+import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { FaBook } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router";
 import { toast } from "react-toastify";
-import { useUploadPhotoMutation } from "../api/profileApi";
+import { useApplyMutation } from "../api/jobApi";
 import { logout } from "../auth/authSlice";
 
-const UploadPhoto = () => {
+const Apply = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const goBack = () => {
-        navigate('/profile', { replace: true })
-    }
+    const goBack = () => navigate(-1);
 
-    const [uploadPhoto, { isLoading, isSuccess, isError, error }] = useUploadPhotoMutation();
-    const [photo, setPhoto] = useState();
-    console.log(isError, error)
+    const [apply, { isLoading, isSuccess, isError, error }] = useApplyMutation();
+    const [cv, setCv] = useState();
 
     useEffect(() => {
         if(isError){
@@ -34,17 +31,17 @@ const UploadPhoto = () => {
 
     useEffect(() => {
         if(isSuccess){
-            toast.success('Profile photo successfully updated');
-            navigate('/profile', { replace: true })
+            toast.success('Job application successfully sent.');
+            navigate('/', { replace: true })
         }
     }, [isSuccess, navigate])
 
     const onSubmit = async (e) => {
         e.preventDefault();
-       const photoToUpload = new FormData();
-       photoToUpload.append('photo', photo);
-       const data = { id, photoToUpload };
-       await uploadPhoto(data)
+       const cvToUpload = new FormData();
+       cvToUpload.append('cv', cv);
+       const data = { id, cvToUpload };
+       await apply(data)
     }
 
   return (
@@ -54,7 +51,7 @@ const UploadPhoto = () => {
                 <Col sm={12} md={8} lg={4} className='mt-5'>
                     <Form style={ {boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', padding: '1rem'} } onSubmit={onSubmit}>
                         <h2 className='mt-5 mb-3 text-center RegistrationHeading'>
-                            <FaPhotoVideo /> Upload Photo
+                            <FaBook /> Send Application
                         </h2>
                         <Row className="mb-3">
                             <Col lg={12} className='mb-3'>
@@ -63,22 +60,22 @@ const UploadPhoto = () => {
                                     <Form.Control 
                                         type="file"
                                         required      
-                                        id="photoToUpload"
-                                        name="phototoUpload"
-                                        accept=".png, .jpg, .jpeg"
-                                        onChange={(e) => setPhoto(e.target.files[0])}
+                                        id="cvToUpload"
+                                        name="cvToUpload"
+                                        accept=".pdf, .doc, .docx"
+                                        onChange={(e) => setCv(e.target.files[0])}
                                     />
                                 </Form.Group>
                             </Col>
                             <Col lg={12}>
                                 <Row className="mb-3">
-                                    <Col sm={12} md={6} className='d-flex'>
+                                    <Col sm={12} md={4} className='d-flex'>
                                         <Button className="BackButton mb-1" onClick={goBack}>Back</Button>
                                     </Col>
-                                    <Col sm={12} md={6} className='d-flex'>
+                                    <Col sm={12} md={8} className='d-flex'>
                                         { isLoading ? 
-                                            <Button type="submit" className='RegistrationButton mb-1' style={{ backgroundColor: '#212121', border: 'none'}} disabled>Uploading</Button> :
-                                            <Button type="submit" className='RegistrationButton mb-1' >Upload</Button>
+                                            <Button type="submit" className='RegistrationButton mb-1' style={{ backgroundColor: '#212121', border: 'none'}} disabled>Processing...</Button> :
+                                            <Button type="submit" className='RegistrationButton mb-1' >Send Application</Button>
                                         }
                                     </Col>
                                 </Row>
@@ -92,4 +89,4 @@ const UploadPhoto = () => {
   )
 }
 
-export default UploadPhoto
+export default Apply

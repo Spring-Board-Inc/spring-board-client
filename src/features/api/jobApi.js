@@ -24,6 +24,14 @@ export const jobApi = createApi({
         }),
         getJob: builder.query({
             query: (id) => `/job/${id}`
+        }),
+        apply: builder.mutation({
+            query: (data) => ({
+                url: `/job/apply/${data.id}`,
+                method: 'POST',
+                body: data.cvToUpload,
+            }),
+            invalidatesTags: ['Stats']
         })
     })
 })
@@ -31,5 +39,6 @@ export const jobApi = createApi({
 export const {
     useGetJobsQuery,
     useGetJobQuery,
-    useGetJobStatsQuery
+    useGetJobStatsQuery,
+    useApplyMutation
 } = jobApi;

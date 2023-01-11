@@ -1,11 +1,10 @@
 import { Container, Row, Col, Card, Badge, Button } from "react-bootstrap";
 import DarkSpinner from '../../components/public/Commons/DarkSpinner';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { ROLES } from "../../helpers/Helpers";
 import TimeAgo from "../../components/public/Commons/TimeAgo";
 import Eta from "../../components/public/Commons/Eta";
-import ApplicationModal from "./ApplicationModal";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import '../../App.css'
@@ -62,21 +61,32 @@ const JobDetails = () => {
                                             {job?.NumberOfApplicants?.toLocaleString('en-US')} persons have applied
                                         </Card.Text>   
                                 }
-
+                                <Row className="centered">
                                 {(user && !isApplicant) ?
                                     <>
-                                        <Button className="ModalButton m-1">Edit</Button>
-                                        <Button className="DeleteButton m-1" style={{float: 'right'}}>Delete</Button>
+                                        <Col sm={12} md={4} className='centered'>
+                                            <Button className="btn-secondary w-100 m-1" onClick={goBack}>Back</Button>
+                                        </Col>
+                                        <Col sm={12} md={4} className='centered'>
+                                            <Button className="w-100 m-1" style={{ backgroundColor: '#212121'}}>Edit</Button>
+                                        </Col>
+                                        <Col sm={12} md={4} className='centered'>
+                                            <Button className="btn-danger w-100 m-1">Delete</Button>
+                                        </Col>
                                     </>
                                      :
                                      <>
-                                        <Button className="btn-secondary w-50 m-1" onClick={goBack}>Back</Button>
-                                        <ApplicationModal
-                                            user={user}
-                                            job={job}
-                                        />
+                                        <Col sm={12} md={6} className='centered'>
+                                            <Button className="btn-secondary w-100 m-1" style={{ border: 'none'}} onClick={goBack}>Back</Button>
+                                        </Col>
+                                        <Col sm={12} md={6} className='centered'>
+                                            <Button className='w-100 m-1' style={{ backgroundColor: '#212121', border: 'none' }}>
+                                                <Link to={`apply`} style={{ textDecoration: 'none', color: '#ededed'}}>Apply</Link>
+                                            </Button>
+                                        </Col>
                                      </>
                                 }
+                                </Row>
                             </Card.Body>
                         </Card>
                         </>
