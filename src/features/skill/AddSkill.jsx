@@ -78,16 +78,6 @@ const AddSkill = () => {
         }))
     }
 
-    useEffect(() => {
-      if(isError){
-        if(error?.status === 401){
-          dispatch(logout())
-          toast.error('Please re-authenticate to continue');
-          navigate('/login', { replace: true })
-        }
-      }
-    }, [error, isError, navigate, dispatch])
-
   return (
     <Row>
         <Col sm={0} md={3}></Col>

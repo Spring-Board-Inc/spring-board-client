@@ -70,7 +70,7 @@ const SkillSummary = ( { skill }) => {
             </Button>
             <Button className="DeButton m-1" style={{float: 'right'}}>
                 <Link to={`${skill?.SkillId}/edit`}  className='EditLink'>
-                    <FaEdit color="blue"/>
+                    <FaEdit color="#212121"/>
                 </Link>
             </Button>
         </Card.Body>

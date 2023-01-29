@@ -34,16 +34,14 @@ export const experienceApi = createApi({
             query: ({ id, ...rest}) => ({
                 url: `/experience/${id}`,
                 method: 'PUT',
-                body: rest,
-                responseHandler: (response) => response.text()
+                body: rest
             }),
             invalidatesTags: ['Xp']
         }),
         deleteExperience: builder.mutation({
             query: (id) => ({
                 url: `/experience/${id}`,
-                method: 'DELETE',
-                responseHandler: (response) => response.text()
+                method: 'DELETE'
             }),
             invalidatesTags: ['Xp']
         })

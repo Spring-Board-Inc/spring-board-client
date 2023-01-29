@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif; 
+}
+.Contain {
+    background: #fefefe;
+    margin: 0;
+    padding: 0;
+    width: 8.5in;
+    min-height: 11in;
+    box-sizing: border-box;
+}
+
+.CenterSearchBar {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .Border {
+    border-bottom: 2px solid #212121;
+  }

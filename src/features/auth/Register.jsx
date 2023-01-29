@@ -8,8 +8,13 @@ import { atLeastFiveCharacters, atLeastTwoCharacters, isValidPhoneNumber, PWD_RE
 import Spinners from '../../components/public/Commons/Spinner';
 import '../../App.css'
 import { useRegisterMutation } from "../api/authApi";
+import { useGetCountriesQuery } from "../api/countryApi";
+import { useGetStatesQuery } from "../api/stateApi";
+import { GENDERS } from "../../helpers/Helpers";
 
 const Register = () => {
+    const navigate = useNavigate();
+    const goBack = () => navigate(-1)
     const [formData, setFormData] = useState({
         firstName: '',
         lastName: '',
@@ -22,7 +27,7 @@ const Register = () => {
         city: '',
         postalCode: '',
         state: '',
-        country: '',
+        countryId: '',
         roleIndex: 0
     });
 
@@ -39,15 +44,19 @@ const Register = () => {
             city,
             postalCode,
             state,
-            country,
+            countryId,
             roleIndex 
         } = formData;
-    
-    const navigate = useNavigate();
+   
     const dispatch = useDispatch()
 
     const [register, {data: reg, isLoading, isError, isSuccess, error }] = useRegisterMutation();
-    
+    const { data: countries } = useGetCountriesQuery();
+    const { data: allStates } = useGetStatesQuery('');
+
+    const getStatesByCountry = (state) => state?.CountryId === countryId;
+    const states = allStates?.Data.filter(getStatesByCountry);
+
     useEffect(() => {
         if(isError){
             toast.error(error?.data?.Message)
@@ -66,8 +75,17 @@ const Register = () => {
         }))
     }
 
+    const [validated, setValidated] = useState(false);
+
     const onSubmit = async (e) => {
+        const form = e.currentTarget;
+        if (form.checkValidity() === false) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+        setValidated(true);
         e.preventDefault();
+        const country = countries?.Data.filter((country) => country?.Id === countryId)[0]?.Name;
         const userData = {
             firstName,
             lastName,
@@ -114,7 +132,6 @@ const Register = () => {
     const [postalCodeFocus, setPostalCodeFocus] = useState(false);
 
     const [validState, setValidState] = useState(false);
-    const [stateFocus, setStateFocus] = useState(false);
 
     const [validCountry, setValidCountry] = useState(false);
 
@@ -145,9 +162,9 @@ const Register = () => {
     }, [state]);
 
     useEffect(() => {
-        var result = atLeastTwoCharacters(country);
+        var result = atLeastTwoCharacters(countryId);
         setValidCountry(result);
-    }, [country]);
+    }, [countryId]);
 
     useEffect(() => {
         var result = atLeastTwoCharacters(firstName);
@@ -186,7 +203,7 @@ const Register = () => {
         <Row className='py-5 Main'>
             <Col sm={0} md={1} lg={3}></Col>
             <Col sm={12} md={10} lg={6}>
-                <Form style={ {boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', padding: '1rem'} } className='mb-3' onSubmit={onSubmit}> 
+                <Form style={ {boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px', padding: '1rem'} } className='mb-3' noValidate validated={validated} onSubmit={onSubmit}> 
                     <h2 className='mt-5 mb-3 text-center RegistrationHeading'>
                         <FaUserPlus /> Sign up
                     </h2>
@@ -365,7 +382,7 @@ const Register = () => {
                         </Col>
                     </Row>
                     <Row className="mb-3">
-                        <Col sm={12} md={6} className='mb-3'>
+                        <Col sm={12} md={7} className='mb-3'>
                             <Form.Group>
                                 <Form.Label className='RegistrationLabel'>Street</Form.Label>
                                     <span className={validStreet ? "valid" : "hide"}>
@@ -392,7 +409,7 @@ const Register = () => {
                                     </p>
                             </Form.Group>
                         </Col>
-                        <Col sm={12} md={6}>
+                        <Col sm={12} md={5}>
                             <Form.Group>
                                 <Form.Label className='RegistrationLabel'>City</Form.Label>
                                     <span className={validCity ? "valid" : "hide"}>
@@ -421,34 +438,25 @@ const Register = () => {
                         </Col>
                     </Row>
                     <Row className="mb-3">
-                        <Col sm={12} md={6} className='mb-3'>
+                        <Col sm={12} md={8} className='mb-3'>
                             <Form.Group>
-                                <Form.Label className='RegistrationLabel'>State</Form.Label>
-                                    <span className={validState ? "valid" : "hide"}>
-                                        <FaCheck/>
-                                    </span>
-                                    <span className={validState || !state ? "hide" : "invalid"}>
-                                        <FaTimes/>
-                                    </span>
-                                <Form.Control 
-                                    type="text"
+                                <Form.Label className='RegistrationLabel'>Select a Country</Form.Label>
+                                <Form.Select
                                     required
-                                    id="state"
-                                    name="state"
-                                    value={state}
+                                    id="countryId"
+                                    name="countryId"
+                                    value={countryId}
                                     onChange={onChange}
-                                    onFocus={() => setStateFocus(true)}
-                                    onBlur={() => setStateFocus(false)}
-                                    aria-invalid={validState ? "false" : "true"}
-                                    aria-describedby="statenote"
-                                    placeholder="State" />
-                                    <p id="statenote" className={stateFocus && state && !validState ? "instructions": "offscreen"}>
-                                        <FaInfoCircle />
-                                        Must be at least 2 characters long.<br/>
-                                    </p>
+                                    aria-invalid={validCountry ? "false" : "true"}
+                                    aria-describedby="countrynote">
+                                    <option></option>
+                                    { countries?.Data && countries?.Data?.map(country => (
+                                        <option key={country?.Id} value={country?.Id}>{country?.Name}</option>
+                                    ))}
+                                </Form.Select>
                             </Form.Group>
                         </Col>
-                        <Col sm={12} md={6}>
+                        <Col sm={12} md={4}>
                             <Form.Group>
                                 <Form.Label className='RegistrationLabel'>Postal Code</Form.Label>
                                     <span className={validPostalCode ? "valid" : "hide"}>
@@ -477,36 +485,27 @@ const Register = () => {
                         </Col>
                     </Row>
                     <Row>
-                        <Col sm={12} md={6} className="mb-3">
+                        <Col sm={12} md={8} className="mb-3">
                             <Form.Group>
-                                <span className={validCountry ? "valid" : "hide"}>
-                                        <FaCheck/>
-                                    </span>
-                                    <span className={validCountry || !country ? "hide" : "invalid"}>
-                                        <FaTimes/>
-                                    </span>
+                                <Form.Label className='RegistrationLabel'> Select a State</Form.Label>
                                 <Form.Select
                                     required
-                                    id="country"
-                                    name="country"
-                                    value={country}
+                                    id="state"
+                                    name="state"
+                                    value={state}
                                     onChange={onChange}
-                                    aria-invalid={validCountry ? "false" : "true"}
-                                    aria-describedby="countrynote">
-                                    <option>...Select Country...</option>
-                                    <option>Nigeria</option>
-                                    <option>United State</option>
+                                    aria-invalid={validState ? "false" : "true"}
+                                    aria-describedby="statenote">
+                                    <option></option>
+                                    { states && states?.map(state => (
+                                        <option key={state?.Id}>{state?.AdminArea}</option>
+                                    ))}
                                 </Form.Select>
                             </Form.Group>
                         </Col>
-                        <Col sm={12} md={6} className='mb-3'>
+                        <Col sm={12} md={4} className='mb-3'>
                             <Form.Group>
-                                <span className={validGender ? "valid" : "hide"}>
-                                        <FaCheck/>
-                                    </span>
-                                    <span className={validGender || !gender ? "hide" : "invalid"}>
-                                        <FaTimes/>
-                                    </span>
+                            <Form.Label className='RegistrationLabel'> Select a Gender</Form.Label>
                                 <Form.Select
                                     required
                                     id="gender"
@@ -515,27 +514,28 @@ const Register = () => {
                                     onChange={onChange}
                                     aria-invalid={validGender ? "false" : "true"}
                                     aria-describedby="gendernote">
-                                    <option>...Select Gender...</option>
-                                    <option>Male</option>
-                                    <option>Female</option>
+                                    <option></option>
+                                    { GENDERS && GENDERS?.map(gender => (
+                                        <option key={gender}>{gender}</option>
+                                    ))}
                                 </Form.Select>
                             </Form.Group>
                         </Col>
                     </Row>
-                    <Row className="mb-3"> 
-                        <Col sm={12} md={6} style={{margin: 'auto'}}>
+                    <Row className="mb-3">
+                        <Col sm={12} md={6} className='mb-2'>
+                            { isLoading ?
+                                <Button variant="secondary" className="w-100"  onClick={goBack} disabled>Back</Button> :
+                                <Button variant="secondary" className="w-100"  onClick={goBack}>Back</Button>
+                            }
+                        </Col>
+                        <Col sm={12} md={6} className='mb-2'>
                             { isLoading ? 
                                 <Button type="submit" className='RegistrationButton'>
                                     <Spinners />
                                 </Button> :
                                 <Button 
                                     type="submit"
-                                    disabled={
-                                                !validFirstName || !validLastName || !validEmail || 
-                                                !validPhoneNumber || !validPasswordMatch || !validPassword ||
-                                                !validCity || !validCountry || !validStreet || !validPostalCode ||
-                                                !validState ? true : false
-                                            }
                                     className='RegistrationButton'>Submit
                                 </Button>
                             }

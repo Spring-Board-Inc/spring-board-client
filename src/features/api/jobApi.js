@@ -12,7 +12,7 @@ export const jobApi = createApi({
             return headers
         }
     }),
-    tagTypes: ['Job', 'Stats'],
+    tagTypes: ['Job'],
     endpoints: (builder) => ({
         getJobs: builder.query({
             query: () => `/job`,
@@ -20,10 +20,13 @@ export const jobApi = createApi({
         }),
         getJobStats: builder.query({
             query: () => `/job/stats`,
-            providesTags: ['Stats']
+            providesTags: ['Job']
         }),
         getJob: builder.query({
             query: (id) => `/job/${id}`
+        }),
+        getRawJob: builder.query({
+            query: (id) => `/job/raw/${id}`
         }),
         apply: builder.mutation({
             query: (data) => ({
@@ -31,7 +34,34 @@ export const jobApi = createApi({
                 method: 'POST',
                 body: data.cvToUpload,
             }),
-            invalidatesTags: ['Stats']
+            invalidatesTags: ['Job']
+        }),
+        addJob: builder.mutation({
+            query: (data) => ({
+                url: '/job',
+                method: 'POST',
+                body: data
+            }),
+            invalidatesTags: ['Job']
+        }),
+        editJob: builder.mutation({
+            query: ({ id, formData }) => ({
+                url: `/job/${id}`,
+                method: 'PUT',
+                body: formData
+            }),
+            invalidatesTags: ['Job']
+        }),
+        deleteJob: builder.mutation({
+            query: (id) => ({
+                url: `/job/${id}`,
+                method: 'DELETE'
+            }),
+            invalidatesTags: ['Job']
+        }),
+        getJobApplicants: builder.query({
+            query: (id) => `job/${id}/applicants`,
+            invalidatesTags: ['Job']
         })
     })
 })
@@ -40,5 +70,10 @@ export const {
     useGetJobsQuery,
     useGetJobQuery,
     useGetJobStatsQuery,
-    useApplyMutation
+    useApplyMutation,
+    useAddJobMutation,
+    useEditJobMutation,
+    useGetRawJobQuery,
+    useDeleteJobMutation,
+    useGetJobApplicantsQuery
 } = jobApi;

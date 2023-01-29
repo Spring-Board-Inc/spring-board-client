@@ -18,10 +18,6 @@ export const profileApi = createApi({
             query: (id) => `/${id}`,
             providesTags: ['Profile']
         }),
-        getUsers: builder.query({
-            query: (query) => `/${query}`,
-            providesTags: ['Users']
-        }),
         editNames: builder.mutation({
             query: ({ id, ...rest}) => ({
                 url: `/edit-names/${id}`,
@@ -79,7 +75,6 @@ export const {
     useEditNamesMutation,
     useActivateMutation,
     useDeactivateMutation,
-    useGetUsersQuery,
     useEditAddressMutation,
     useUploadPhotoMutation,
     useUpdatePhotoMutation

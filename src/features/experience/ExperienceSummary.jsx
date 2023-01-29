@@ -30,8 +30,7 @@ const ExperienceSummary = ( { experience }) => {
                 </Card.Text>
             }
             </Card.Subtitle>
-            <Card.Text style={{borderBottom: '1px solid #eee', paddingBottom: '0.5rem'}} dangerouslySetInnerHTML={{ __html: `${experience?.Descriptions}`.slice(0, 200) }}></Card.Text>
-                
+            <Card.Text style={{borderBottom: '1px solid #eee', paddingBottom: '0.5rem'}} dangerouslySetInnerHTML={{ __html: `${experience?.Descriptions}`.slice(0, 200) }}></Card.Text>    
             <Card.Text className="text-muted RemoveSpace"><strong>Start Date</strong>: {shortDateTime(experience?.StartDate)}.</Card.Text>
             { minDate !== xpDate ? 
                 <Card.Text className="text-muted RemoveSpace"><strong>End Date</strong>: {shortDateTime(experience?.EndDate)}.</Card.Text> :

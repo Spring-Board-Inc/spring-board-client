@@ -46,7 +46,7 @@ const Skills = () => {
               <FaPlusSquare color="#212121"/>
           </Link>
         </Row>
-        <Row md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+        <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
       </Col>
     </Row>
   )

@@ -2,7 +2,7 @@ import Nav from 'react-bootstrap/Nav';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-function TabsExample() {
+function ApplicantDashboardTabs() {
     const [key, setKey] = useState('education');
   return (
     <Nav 
@@ -28,4 +28,4 @@ function TabsExample() {
   );
 }
 
-export default TabsExample;
+export default ApplicantDashboardTabs;

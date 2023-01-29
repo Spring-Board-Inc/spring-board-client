@@ -2,7 +2,7 @@ import { Container, Row, Col, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import DarkSpinner from "../../components/public/Commons/DarkSpinner";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useConfirmEmailMutation } from "../api/authApi";
 import { toast } from "react-toastify";
 
@@ -11,14 +11,19 @@ const ConfirmEmail = () => {
     const location = useLocation();
     const navigate = useNavigate();
 
-    const token = location?.state?.Token;
-    const userId = location?.state?.UserId;
+    const tokenFromRoute = location?.state?.Token;
+    const userIdFromRoute = location?.state?.UserId;
+
+    const [token, setToken] = useState(tokenFromRoute)
+    const [userId, setUserId] = useState(userIdFromRoute)
 
     useEffect(() => {
         const confirmUserEmail = async () => {
             if(token && userId){
                 const data = { token, userId }
                 await confirmEmail(data);
+                setToken('')
+                setUserId('')
             } else {
                 navigate('/', { replace: true })
             }

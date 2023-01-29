@@ -1,6 +1,9 @@
+import { differenceInMonths, parseISO } from "date-fns";
+
 export const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,200}$/;
 export const DUMMY_USER_PHOTO = 'https://th.bing.com/th/id/OIP.qWxWnrBHWhc8nexK2HjpdwAAAA?pid=ImgDet&rs=1';
 export const BASE_URL = 'https://localhost:7175/api';
+export const MIN_DATE = "0001-01-01T00:00:00";
 
 export const capitalize = (word) => {
     return word.toLowerCase().replace(/\w/, firstLetter => firstLetter.toUpperCase()).trim();
@@ -34,7 +37,8 @@ export const shortLocalTime = (date) => {
     return dateObj.toLocaleTimeString("en-US");
 }
 
-export const yyyyMmDd = (date) => {
+export const yyyyMmDd = (data) => {
+    var date = data === MIN_DATE ? null : data;
      return new Date(date).toLocaleDateString('en-GB').split('/').reverse().join('-')
 }
 
@@ -77,6 +81,8 @@ export const rating = {
 
 export const EDUCATION_LEVEL_ARR = ['Basic', 'Post Basic', 'Diploma', 'Bachelor Degree', 'Master Degree', 'Ph.D']
 
+export const GENDERS = ['Male', 'Female']
+
 export const quillModules = {
     toolbar: [
       [{ 'font': [] }],
@@ -104,3 +110,23 @@ export const quillFormats = [
   ];
 
   export const skillLevels = ["Beginer", "Proficient", "Advance", "Expert"];
+  export const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+
+  export const differenceInTime = (startDate, endDate) => {
+    const nowDate = endDate === MIN_DATE ? new Date() : endDate;
+    const months = differenceInMonths(parseISO(new Date(nowDate).toISOString()), parseISO(new Date(startDate).toISOString()));
+    return `${Math.floor(months / 12)}y, ${months % 12}m`
+  }
+
+  export const toYearAndMonth = (date) => {
+    const dateObj = new Date(date)
+    const year = dateObj.getFullYear();
+    const month = dateObj.getMonth();
+    return `${months[month]}., ${year}.`;
+  }
+
+  export const toYearAndMonthOrCurrent = (date) => {
+    const isMinDate = date === MIN_DATE;
+    const dateObj = new Date(date);
+    return isMinDate ? 'CURRENT' : `${months[dateObj.getMonth()]}., ${dateObj.getFullYear()}`
+  }

@@ -1,9 +1,10 @@
 import { useEffect } from "react"
-import { Row, Col, Container, Alert } from "react-bootstrap"
+import { Row, Col, Container } from "react-bootstrap"
 import { FaPlusSquare } from "react-icons/fa"
 import { useDispatch, useSelector } from "react-redux"
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
+import Alerts from "../../components/public/Commons/Alerts"
 import { useGetExperiencesQuery } from "../api/experienceApi"
 import { logout } from "../auth/authSlice"
 import ExperienceSummary from "./ExperienceSummary"
@@ -33,12 +34,13 @@ const Experiences = () => {
               <ExperienceSummary experience={xp}/>
             </Container>
           )) :
-          <Container>
-            <Alert variant="danger" className="text-center">
-              <Alert.Heading>No Work Experience Record</Alert.Heading>
-                <p>Please click the "+" symbol above to add.</p>
-            </Alert>
-          </Container>
+          <Alerts heading={`No Work Experience Record`} body={`Please click the "+" symbol above to add.`} />
+          // <Container>
+          //   <Alert variant="danger" className="text-center">
+          //     <Alert.Heading></Alert.Heading>
+          //       <p></p>
+          //   </Alert>
+          // </Container>
 
   return (
     <Row className="g-3 y-2 JobCard RemoveSpace">

@@ -35,19 +35,12 @@ function redoChange() {
 
 // Add sizes to whitelist and register them
 const Size = Quill.import("formats/size");
-Size.whitelist = ["extra-small", "small", "medium", "large"];
+Size.whitelist = ["extra-small", "small", "medium", "regular", "large"];
 Quill.register(Size, true);
 
 // Add fonts to whitelist and register them
 const Font = Quill.import("formats/font");
-Font.whitelist = [
-  "arial",
-  "comic-sans",
-  "courier-new",
-  "georgia",
-  "helvetica",
-  "lucida"
-];
+Font.whitelist = ['large', 'medium', "small", "regular"];
 Quill.register(Font, true);
 
 // Modules object for setting up the Quill editor
@@ -113,6 +106,17 @@ export const EditorToolbar = () => (
       <button className="ql-redo">
         <CustomRedo />
       </button>
+      <select className="ql-size" defaultValue="medium">
+        <option value="extra-small">Extral Small</option>
+        <option value="small">Small</option>
+        <option value="medium">Medium</option>
+        <option value="large">Large</option>
+      </select>
+      <select className="ql-header" defaultValue="3">
+        <option value="1">Heading</option>
+        <option value="2">Subheading</option>
+        <option value="3">Normal</option>
+      </select>
     </span>
   </div>
 );

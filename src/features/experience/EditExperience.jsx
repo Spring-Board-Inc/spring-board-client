@@ -4,7 +4,7 @@ import { FaEdit } from "react-icons/fa";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEditExperienceMutation, useGetExperienceQuery } from "../api/experienceApi";
 import { useEffect, useState } from "react";
-import { yyyyMmDd } from "../../helpers/Helpers";
+import { MIN_DATE, yyyyMmDd } from "../../helpers/Helpers";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { logout } from "../auth/authSlice";
@@ -20,7 +20,7 @@ const EditExperience = () => {
     designation: experience?.Designation,
     location: experience?.Location,
     startDate: yyyyMmDd(experience.StartDate),
-    endDate: yyyyMmDd(experience.EndDate)
+    endDate: experience?.EndDate === MIN_DATE? '' : yyyyMmDd(experience.EndDate)
 });
 
 const [descriptions, setDescriptions] = useState(experience?.Descriptions)
@@ -164,7 +164,7 @@ const handleChange = value => {
                                         theme="snow"
                                         value={descriptions}
                                         onChange={handleChange}
-                                        placeholder={"Write something awesome..."}
+                                        placeholder={"Job descriptions..."}
                                         modules={modules}
                                         formats={formats}
                                     />

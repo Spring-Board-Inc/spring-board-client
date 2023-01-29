@@ -1,8 +1,8 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { Outlet } from "react-router-dom";
-import TabsExample from "../../features/profile/Info";
+import ApplicantDashboardTabs from "../../features/profile/ApplicantDashboardTabs";
 
-const UserInfo = () => {
+const ApplicantDashboard = () => {
   return (
     <Container className='py-5'>
       <Row className='mt-5'>
@@ -10,7 +10,7 @@ const UserInfo = () => {
         <Col sm={12} md={10} lg={8}>
           <Row>
               <Col>
-                  <TabsExample />
+                  <ApplicantDashboardTabs />
               </Col>
           </Row>
         </Col>
@@ -27,4 +27,4 @@ const UserInfo = () => {
   )
 }
 
-export default UserInfo
+export default ApplicantDashboard

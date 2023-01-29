@@ -11,6 +11,12 @@ import { experienceApi } from '../features/api/experienceApi';
 import { skillApi } from '../features/api/skillApi';
 import { userSkillApi } from '../features/api/userSkillApi';
 import { certificationApi } from '../features/api/certificationApi';
+import { employerApi } from '../features/api/employerApi';
+import { countryApi } from '../features/api/countryApi';
+import { stateApi } from '../features/api/stateApi';
+import { industryApi } from '../features/api/industryApi';
+import { jobTypeApi } from '../features/api/jobTypeApi';
+import { userApi } from '../features/api/userApi';
 
 const persistConfig = {
   key: "root",
@@ -27,6 +33,12 @@ const reducer = combineReducers({
   [skillApi.reducerPath]: skillApi.reducer,
   [userSkillApi.reducerPath]: userSkillApi.reducer,
   [certificationApi.reducerPath]: certificationApi.reducer,
+  [employerApi.reducerPath]: employerApi.reducer,
+  [countryApi.reducerPath]: countryApi.reducer,
+  [stateApi.reducerPath]: stateApi.reducer,
+  [jobTypeApi.reducerPath]: jobTypeApi.reducer,
+  [industryApi.reducerPath]: industryApi.reducer,
+  [userApi.reducerPath]: userApi.reducer,
   auth: authReducer
 });
 
@@ -41,7 +53,9 @@ export const store = configureStore({
       },
     }).concat(
         authApi.middleware, profileApi.middleware, jobApi.middleware, educationApi.middleware,
-        experienceApi.middleware, skillApi.middleware, userSkillApi.middleware, certificationApi.middleware
+        experienceApi.middleware, skillApi.middleware, userSkillApi.middleware, certificationApi.middleware,
+        employerApi.middleware, countryApi.middleware, stateApi.middleware, jobTypeApi.middleware,
+        industryApi.middleware, userApi.middleware
       )
 });
 

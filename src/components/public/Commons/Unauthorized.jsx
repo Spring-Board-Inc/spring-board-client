@@ -1,4 +1,5 @@
 import { Container, Row, Col, Card, Button } from "react-bootstrap";
+import { FaBan } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
 const Unauthorized = () => {
@@ -12,7 +13,7 @@ const Unauthorized = () => {
             <Col sm={12} md={8} lg={4}>
                 <Card>
                     <Card.Body>
-                        <Card.Text>You do not have access to the requested page.</Card.Text>
+                        <Card.Text className="centered"><FaBan color="red" size={26}/><span className="h3 p-1">Unauthorized.</span><FaBan color="red" size={26}/></Card.Text>
                         <Card.Text>
                             <Button className='Button' onClick={goBack}>Go Back</Button>
                         </Card.Text>

@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;900&display=swap');
+
+* {
+    font-family: "Poppins", sans-serif; 
+}
+body {
+    background: #fefefe;
+    margin: 0;
+    padding: 0;
+    width: 8.5in;
+    min-height: 11in;
+    box-sizing: border-box;
+}
+
+.CenterSearchBar {
+    justify-content: center;
+    align-items: center;
+  }
+
+  .Border {
+    border-bottom: 2px solid #212121;
+  }
+
+.name {
+    font-weight: 900;
+}
+
+.wrapper {
+    margin: 3rem;
+}
+
+.contact a, .addr, .profile, .date p, .country p {
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.address, .phone, .email, .github {
+    margin: 0 7px;
+}
+
+.fa {
+    margin-right: 4px;
+}
+
+.left {
+    padding-left: 0 !important;
+    padding-right: 30px !important;
+}
+
+.right {
+    padding-right: 0 !important;
+    padding-left: 30px !important;
+}
+
+.no-pad {
+    padding-right: 0 !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.heading {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.skill-heading h6 {
+    font-size: 14px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.desc, .details h6 {
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.date {
+    margin-right: 10px;
+}
+
+.certification, .projects {
+    font-size: 13px;
+}
+
+.certification .d-flex {
+    padding-right: 0 !important;
+    margin-right: 0 !important;
+}
+
+.projects ul {
+    list-style: none;
+}
+
+.head {
+    font-weight: 900;
+    font-size: 15px;
+}
+
+.head-2 {
+    font-weight: 700;
+}

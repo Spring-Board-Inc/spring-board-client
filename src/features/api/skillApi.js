@@ -31,19 +31,17 @@ export const skillApi = createApi({
             invalidatesTags: ['Skill']
         }),
         editSkill: builder.mutation({
-            query: ({ id, ...rest}) => ({
+            query: ({ id, formData}) => ({
                 url: `/${id}`,
                 method: 'PUT',
-                body: rest,
-                responseHandler: (response) => response.text()
+                body: formData
             }),
             invalidatesTags: ['Skill']
         }),
         deleteSkill: builder.mutation({
             query: (id) => ({
                 url: `/${id}`,
-                method: 'DELETE',
-                responseHandler: (response) => response.text()
+                method: 'DELETE'
             }),
             invalidatesTags: ['Skill']
         })
