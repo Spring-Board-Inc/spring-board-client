@@ -71,7 +71,7 @@ import IndustryDetails from './features/industry/IndustryDetails';
 import NestedJobDetails from './features/job/NestedJobDetails';
 import JobApplicants from './features/employer/JobApplicants';
 import ApplicantDetails from './features/employer/ApplicantDetails';
-import AdminEmployerDetails from './features/employer/Styles/AdminEmployerDetails';
+import AdminEmployerDetails from './features/employer/AdminEmployerDetails';
 import { useSelector } from 'react-redux';
 import Print from './Print';
 import AddCareerSummary from './features/summary/AddCareerSummary';

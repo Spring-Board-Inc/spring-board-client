@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useChangePasswordMutation } from "../api/authApi";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "./authSlice";
 
-const ChangePassword = ({ userId }) => {
+const ChangePassword = () => {
+    const { user } = useSelector((state) => state.auth);
+    const userId = user?.UserClaims?.UserId;
     const [ changePassword, {data: pass, isLoading, isError, isSuccess, error } ] = useChangePasswordMutation();
     const [validNewPassword, setValidNewPassword] = useState(false);
     const [passwordFocus, setPasswordFocus] = useState(false);
@@ -61,26 +63,26 @@ const ChangePassword = ({ userId }) => {
     }
 
     const onSubmit = async (e) => {
-        e.preventDefault();
+      e.preventDefault()
 
-        if(userId){
-            const data = {
-                currentPassword,
-                newPassword,
-                confirmNewPassword,
-                userId
-            }
-            await changePassword(data);
-        }
+      if(userId){
+          const data = {
+              currentPassword,
+              newPassword,
+              confirmNewPassword,
+              userId
+          }
+          await changePassword(data);
+      }
     }
 
   return (
     <Container>
       <Row className='py-5 Main'>
         <Col sm={0} md={2} lg={4}></Col>
-          <Col sm={12} md={8} lg={4} style={ {boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px'} }>
+          <Col className='p-3' sm={12} md={8} lg={4} style={ {boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px'} }>
             <h2 className='mt-5 mb-3 text-center RegistrationHeading'>
-               <FaLock /> Forgot Password
+               <FaLock /> Change Password
             </h2>
             <Form onSubmit={onSubmit}>
               <Row className="mb-3">
@@ -90,8 +92,8 @@ const ChangePassword = ({ userId }) => {
                     <Form.Control 
                         type="password"
                         required
-                        id="olfPassword"
-                        name="oldPassword"
+                        id="currentPassword"
+                        name="currentPassword"
                         value={currentPassword}
                         onChange={onChange}
                         onFocus={() => setPasswordFocus(true)}

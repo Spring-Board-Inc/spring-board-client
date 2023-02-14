@@ -3,12 +3,12 @@ import { Button, Card, Col, Form, Row } from 'react-bootstrap'
 import { FaEdit } from 'react-icons/fa'
 import ReactQuill from 'react-quill'
 import { useDispatch } from 'react-redux'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import EditorToolbar, { formats, modules } from '../../components/public/Commons/EditorToolbar'
 import { yyyyMmDd } from '../../helpers/Helpers'
 import { useGetCountriesQuery } from '../api/countryApi'
-import { useGetEmployersQuery } from '../api/employerApi'
+import { useGetEmployerQuery, useGetEmployersQuery } from '../api/employerApi'
 import { useGetIndustriesQuery } from '../api/industryApi'
 import { useEditJobMutation, useGetRawJobQuery } from '../api/jobApi'
 import { useGetJobTypesQuery } from '../api/jobTypeApi'
@@ -16,8 +16,15 @@ import { useGetStatesQuery } from '../api/stateApi'
 import { logout } from '../auth/authSlice'
 
 const EditJob = () => {
-  const { id } = useParams()
-  const { data: job } = useGetRawJobQuery(id)
+  const { id } = useParams();
+  const location = useLocation();
+  let state = location.state;
+  const job = state;
+  const { data: companies } = useGetEmployerQuery(''); 
+  const { data: industries } = useGetIndustriesQuery(); 
+  const { data: types } = useGetJobTypesQuery();
+  const { data: countries } = useGetCountriesQuery('');
+  const { data: allStates } = useGetStatesQuery('');
 
   const [formData, setFormData] = useState({
     title: job?.Title,
@@ -26,7 +33,7 @@ const EditJob = () => {
     companyId: job?.CompanyId,
     industryId: job?.IndustryId,
     countryId: job?.CountryId,
-    stateId: job?.StateId,
+    stateId: '',
     city: job?.City,
     typeId: job?.TypeId,
     numbersToBeHired: job?.NumbersToBeHired,
@@ -38,11 +45,6 @@ const EditJob = () => {
   const goBack = () => navigate(-1)
   const dispatch = useDispatch()
 
-  const { data: companies } = useGetEmployersQuery(''); 
-  const { data: industries } = useGetIndustriesQuery(); 
-  const { data: types } = useGetJobTypesQuery();
-  const { data: countries } = useGetCountriesQuery('');
-  const { data: allStates } = useGetStatesQuery('');
   const [editJob, { isLoading, isSuccess, isError, error }] = useEditJobMutation()
 
   const [descriptions, setDescriptions] = useState(job?.Descriptions);

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Alert, Badge, Card, Col, Row } from 'react-bootstrap'
-import { FaCalendarAlt, FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa'
+import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa'
 import { toYearAndMonthOrCurrent } from '../../helpers/Helpers'
 
 const ApplicantCV = ({ applicant }) => {

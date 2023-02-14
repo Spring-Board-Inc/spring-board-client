@@ -29,7 +29,7 @@ const Jobs = () => {
           />
           
   return (
-    <Row xs={1} sm={1} md={1} lg={2} className="g-3 mx-5 JobCard">
+    <Row xs={1} sm={1} md={1} lg={2} className="g-3 mx-1 JobCard">
       { isLoading ? 
         <DarkSpinner /> :
         <>

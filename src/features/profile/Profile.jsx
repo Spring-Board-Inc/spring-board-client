@@ -81,7 +81,7 @@ const Profile = () => {
                         <ListGroup.Item className='bgColor'>Last Login: {shortDateTime(profile?.LastLogin)}, {shortLocalTime(profile?.LastLogin)}</ListGroup.Item>
                         <ListGroup.Item className='bgColor'>Last Updated: {shortDateTime(profile?.UpdatedAt)}, {shortLocalTime(profile?.UpdatedAt)}</ListGroup.Item>
                         <ListGroup.Item className='bgColor'>
-                          {/* <Button className='ButtonToLinkDanger' style={{float: 'right'}} onClick={handleDeactivate}>Deactivate Account</Button> */}
+                          <Link to='/change-password' style={{float: 'right', fontStyle: 'bold'}}>Change Password</Link><br />
                           <DeativationModal id={profile?.Id}/>
                         </ListGroup.Item>
                       </ListGroup>

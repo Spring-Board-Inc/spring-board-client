@@ -3,7 +3,15 @@ import { BASE_URL } from '../../helpers/Helpers';
 
 export const authApi = createApi({ 
     reducerPath: 'authApi',
-    baseQuery: fetchBaseQuery({ baseUrl: `${BASE_URL}/auth` }),
+    baseQuery: fetchBaseQuery({ 
+        baseUrl: `${BASE_URL}/auth`,
+        prepareHeaders: (headers, { getState }) => {
+            const { auth } = getState();
+            const token = auth?.user?.AccessToken;
+            headers.set('Authorization', token ? `Bearer ${token}` : '')
+            return headers
+        }
+    }),
     endpoints: (builder) => ({
         login: builder.mutation({
             query: (credential) => ({

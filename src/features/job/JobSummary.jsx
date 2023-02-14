@@ -51,7 +51,10 @@ const JobSummary = ({ job }) => {
             {
               user && user?.UserClaims?.Roles?.includes(ROLES.Employer) ?
               <>
-                <Link to={`/employer/job/${job.Id}`} style={{float: 'right'}}>See Job Details</Link>
+                <Link 
+                  to={`/employer/job/${job.Id}`} 
+                  style={{float: 'right'}}
+                >See Job Details</Link>
               </> :
               user && (user?.UserClaims?.Roles?.includes(ROLES.SuperAdmin) || user?.UserClaims?.Roles?.includes(ROLES.Admin)) ?
               <>

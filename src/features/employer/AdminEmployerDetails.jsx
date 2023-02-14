@@ -1,14 +1,14 @@
 import React from 'react'
 import { Col, Row } from 'react-bootstrap'
 import { useParams } from 'react-router-dom'
-import Alerts from '../../../components/public/Commons/Alerts'
-import { useGetCompanyJobsQuery } from '../../api/jobApi'
-import JobSummary from '../../job/JobSummary'
-import EmployerDetails from '../EmployerDetails'
+import Alerts from '../../components/public/Commons/Alerts'
+import { useGetCompanyJobsQuery } from '../api/jobApi'
+import JobSummary from '../job/JobSummary'
+import EmployerDetails from './EmployerDetails'
 
 const AdminEmployerDetails = () => {
     const { id } = useParams()
-    const { data: jobs, isLoading } = useGetCompanyJobsQuery(id);
+    const { data: jobs } = useGetCompanyJobsQuery(id);
 
     const content = jobs?.Data?.length > 0 ? 
           jobs?.Data?.map( job => (

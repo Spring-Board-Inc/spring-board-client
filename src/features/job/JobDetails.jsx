@@ -133,7 +133,11 @@ const JobDetails = () => {
                                         </Col>
                                         <Col sm={12} md={4} className='centered'>
                                             <Button className="w-100 m-1" style={{ backgroundColor: '#212121', border: 'none'}}>
-                                                <Link to={`/employer/job/${job?.Id}/edit`} style={{ textDecoration: 'none', color: '#ededed'}}>Edit</Link>
+                                                <Link 
+                                                    to={`/employer/job/${job?.Id}/edit`} 
+                                                    style={{ textDecoration: 'none', color: '#ededed'}}
+                                                    state={job}
+                                                >Edit</Link>
                                             </Button>
                                         </Col>
                                         <Col sm={12} md={4} className='centered'>
