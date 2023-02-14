@@ -1,85 +1,34 @@
-import { Alert, Badge, Card, Col, Container, Row } from 'react-bootstrap'
-import { FaCalendarAlt, FaEnvelope, FaMapMarkerAlt, FaPhoneAlt } from 'react-icons/fa';
-import { useLocation } from 'react-router-dom';
-import { toYearAndMonthOrCurrent } from '../../helpers/Helpers';
+import { Container } from 'react-bootstrap'
+import { useDispatch } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { toggleNav } from '../auth/authSlice';
+import ApplicantCV from './ApplicantCV';
 import './Styles/styles.css'
 
 const ApplicantDetails = () => {
-    const location = useLocation();
-    const state = location.state;
-    console.log(state)
-    console.log(new Date(state?.WorkExperiences[0].EndDate))
+  const location = useLocation();
+  const state = location.state;
+  const dispatch = useDispatch()
+  
+  const hideNav = () => {
+    dispatch(toggleNav(false))
+    window.setTimeout(showNav, 3000)
+    }
+
+    const showNav = () => {
+        dispatch(toggleNav(true))
+    }
 
   return (
     <Container className='Contain'>
-        <Row className='CenterSearchBar mb-5 mt-3'>
-            <h1 style={{ fontWeight: 'bold'}} className='text-center mt-5'>{state?.FirstName} {state?.LastName}</h1>
-            <div class="Border mb-2 w-75"></div>
-            <div className='CenterSearchBar d-flex' style={{width: '90%'}}>
-                <span className='mx-1'><FaMapMarkerAlt/>  {state?.City}, {state?.Country}.</span>|
-                <span className='mx-1'><FaPhoneAlt/> <a href={`tel:${state?.PhoneNumber}`}> {state?.PhoneNumber}</a></span>|
-                <span className='mx-1'><FaEnvelope/> <a href={`mailto:${state?.Email}`}> {state?.Email}</a></span>
-            </div>
-        </Row>
-        <Row className='d-flex mx-5'>
-            <h5 className='mb-0' style={{ fontWeight: 'bold'}}>EXPERIENCES</h5>
-            <div class="Border mb-2 w-100"></div>
-            <Row className=''>
-                { state?.WorkExperiences.length > 0 ?
-                    state?.WorkExperiences.map(xp => (
-                       <Col lg={12} key={xp?.Id} className='mb-1'>
-                            <p className="text-muted mb-1">{xp?.Designation.toUpperCase()} at <strong>{xp?.Company.toUpperCase()}</strong> &mdash; <FaCalendarAlt/> {toYearAndMonthOrCurrent(xp?.StartDate)} - {toYearAndMonthOrCurrent(xp?.EndDate)}. <FaMapMarkerAlt/> {xp?.Location.split(',')[0]}</p>
-                            <p className='mx-4' style={{fontSize: '0.95rem'}} dangerouslySetInnerHTML={{ __html: xp?.Descriptions}}></p>
-                       </Col> 
-                    )) :
-                    <Alert variant='danger'>No Work Experience Information</Alert>
-                }
-            </Row>
-        </Row>
-        <Row className='d-flex mx-5'>
-            <h5 className='mb-0' style={{ fontWeight: 'bold'}}>QUALIFICATIONS</h5>
-            <div class="Border mb-2 w-100"></div>
-            <Row className='m-1'>
-                { state?.Educations.length > 0 ?
-                    state?.Educations.map(edu => (
-                        <Col lg={12} key={edu?.Id} className='mb-2'>
-                            <p className='text-muted mb-1'>{edu?.LevelOfEducation} in <strong>{edu?.Major.toUpperCase()}</strong> at <strong>{edu?.School}</strong>, {edu?.City}. {edu?.Country}.</p>
-                            <p className='text-muted mb-1 mx-3'><FaCalendarAlt/> {toYearAndMonthOrCurrent(edu?.StartDate)} to {toYearAndMonthOrCurrent(edu?.EndDate)}.</p>
-                        </Col>
-                    )) :
-                    <Alert variant='danger'>No Qualification Information</Alert>
-                }
-            </Row>
-        </Row>
-        <Row className='d-flex mx-5'>
-            <h5 className='mb-0' style={{ fontWeight: 'bold'}}>CERTIFICATIONS</h5>
-            <div class="Border mb-2 w-100"></div>
-            <Row className='m-1'>
-                {
-                    state?.Certifications.length > 0 ?
-                        state?.Certifications.map( cert => (
-                            <Col lg={12} key={cert?.Id} className='mb-2'>
-                                <p className='text-muted mb-1'>
-                                    <strong>{cert?.Name}</strong> ({cert?.IssuingBody}) &mdash; <FaCalendarAlt/> {toYearAndMonthOrCurrent(cert?.IssuingDate)}.
-                                </p>
-                            </Col> 
-                        )) :
-                        <Alert variant='danger'>No Certification Information</Alert>
-                }
-            </Row>
-        </Row>
-        <Card.Subtitle className='mx-5 mt-2'><h5 className='mb-0 mx-3' style={{ fontWeight: 'bold'}}>SKILLS</h5>
-            <div class="Border mb-2 w-100"></div>
-                { 
-                    state?.UserSkills.length > 0 ?
-                    state?.UserSkills && state?.UserSkills.map( skill => (
-                            <Badge pill bg='secondary' className='mx-1 mb-1' key={skill?.SkillId}>
-                                {skill?.Skill}
-                            </Badge>
-                        )) :
-                    <Alert variant='danger'>No skill record</Alert>
-                }  
-        </Card.Subtitle>
+        <Link 
+            style={{ float: 'right' }} 
+            className='p-2' 
+            to='/print' 
+            onClick={hideNav}
+            state={state}
+        >Print</Link>
+        <ApplicantCV applicant={state} />
     </Container>
   )
 }

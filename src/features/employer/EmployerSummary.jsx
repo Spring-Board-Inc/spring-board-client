@@ -1,6 +1,6 @@
 import { Card, ListGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { shortDateTime, shortLocalTime } from "../../helpers/Helpers";
+import { shortLocalTime } from "../../helpers/Helpers";
 import '../../App.css';
 
 const EmployerSummary = ({ employer }) => {
@@ -13,8 +13,8 @@ const EmployerSummary = ({ employer }) => {
         <Card.Body>
             <ListGroup variant="flush">
                 <ListGroup.Item>Email: {employer?.Email}</ListGroup.Item>
-                <ListGroup.Item className="text-muted">Created: {shortDateTime(employer?.CreatedAt)}, {shortLocalTime(employer?.CreatedAt)}</ListGroup.Item>
-                <ListGroup.Item className="text-muted">Updated: {shortDateTime(employer?.UpdatedAt)}, {shortLocalTime(employer?.UpdatedAt)}</ListGroup.Item>
+                <ListGroup.Item className="text-muted">Created: {new Date(employer?.CreatedAt).toDateString()}, {shortLocalTime(employer?.CreatedAt)}</ListGroup.Item>
+                <ListGroup.Item className="text-muted">Updated: {new Date(employer?.UpdatedAt).toDateString()}, {shortLocalTime(employer?.UpdatedAt)}</ListGroup.Item>
                 <ListGroup.Item>
                     <Link to={`${employer.Id}`} style={{float: 'right'}}>Modify</Link>
                 </ListGroup.Item>

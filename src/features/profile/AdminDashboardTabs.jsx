@@ -16,16 +16,10 @@ const AdminDashboardTabs = () => {
         <Nav.Link eventKey='users' as={Link} to="/admin/user">Users</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="jobs" as={Link} to="/admin/job">Jobs</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
         <Nav.Link eventKey="employers" as={Link} to="/admin/employer">Employers</Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link eventKey="industries" as={Link} to="/admin/industry">Industries</Nav.Link>
-      </Nav.Item>
-      <Nav.Item>
-        <Nav.Link eventKey="locations/state" as={Link} to="/admin/location/state">States</Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link eventKey="locations/country" as={Link} to="/admin/location/country">Countries</Nav.Link>

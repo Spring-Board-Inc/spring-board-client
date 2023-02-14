@@ -1,5 +1,5 @@
 import { Navbar, Container, Nav, NavLink, Button, NavDropdown } from 'react-bootstrap';
-import { FaHome, FaUsers, FaUser, FaSignOutAlt, FaSignInAlt, FaUserPlus, FaGraduationCap, FaBriefcase, FaCogs, FaBookOpen, FaMapMarker, FaIndustry, FaBuilding } from 'react-icons/fa';
+import { FaHome, FaUsers, FaUser, FaSignOutAlt, FaSignInAlt, FaUserPlus, FaGraduationCap, FaBriefcase, FaCogs, FaBookOpen, FaMapMarker, FaIndustry, FaBuilding, FaClipboard, FaBook } from 'react-icons/fa';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../features/auth/authSlice';
@@ -31,7 +31,7 @@ const NavigationBar = () => {
                 <Nav className='me-auto'>
                     { user?.UserClaims?.Roles?.includes(ROLES.Applicant) ?
                        <> 
-                        <NavDropdown title="DASHBOARD" id="navbarScrollingDropdown" className='NavLink'>
+                        <NavDropdown title="PAGES" id="navbarScrollingDropdown" className='NavLink'>
                             <NavDropdown.Item className='NavDropdownMenu'>
                                 <NavLink eventKey={7} as={Link} to="/info/education">
                                     <FaGraduationCap /> Qualifications
@@ -52,21 +52,26 @@ const NavigationBar = () => {
                                     <FaBookOpen /> Certifications
                                 </NavLink>
                             </NavDropdown.Item>
+                            <NavDropdown.Item className='NavDropdownMenu RemoveBorderBottom'>
+                                <NavLink eventKey={17} as={Link} to="/info/summary">
+                                    <FaBook /> Summary
+                                </NavLink>
+                            </NavDropdown.Item>
+                            <NavDropdown.Item className='NavDropdownMenu RemoveBorderBottom'>
+                                <NavLink eventKey={18} as={Link} to="/info/resume">
+                                    <FaClipboard /> Resume
+                                </NavLink>
+                            </NavDropdown.Item>
                         </NavDropdown>
                         </> :
                         (user?.UserClaims?.Roles?.includes(ROLES.SuperAdmin) || user?.UserClaims?.Roles?.includes(ROLES.Admin)) ?
                         <>
-                        <NavDropdown title="DASHBOARD" id="navbarScrollingDropdown" className='NavLink'>
+                        <NavDropdown title="PAGE" id="navbarScrollingDropdown" className='NavLink'>
                             <NavDropdown.Item className='NavDropdownMenu'>
                                 <NavLink eventKey={11} as={Link} to="/admin/user">
                                     <FaUsers /> Users
                                 </NavLink>
                             </NavDropdown.Item>
-                            <NavDropdown.Item className='NavDropdownMenu'>
-                                <NavLink eventKey={12} as={Link} to="/admin/job">
-                                    <FaBriefcase /> Jobs
-                                </NavLink>
-                            </NavDropdown.Item> 
                             <NavDropdown.Item className='NavDropdownMenu'>
                                 <NavLink eventKey={13} as={Link} to="/admin/employer">
                                     <FaBuilding /> Employers
@@ -78,7 +83,7 @@ const NavigationBar = () => {
                                 </NavLink>
                             </NavDropdown.Item>
                             <NavDropdown.Item className='NavDropdownMenu RemoveBorderBottom'>
-                                <NavLink eventKey={15} as={Link} to="/admin/location">
+                                <NavLink eventKey={15} as={Link} to="/admin/country">
                                     <FaMapMarker /> Locations
                                 </NavLink>
                             </NavDropdown.Item>
@@ -96,7 +101,7 @@ const NavigationBar = () => {
                         </> :
                         (user?.UserClaims?.Roles?.includes(ROLES.Employer)) ?
                         <>
-                        <NavDropdown title="DASHBOARD" id="navbarScrollingDropdown" className='NavLink'>
+                        <NavDropdown title="PAGES" id="navbarScrollingDropdown" className='NavLink'>
                             <NavDropdown.Item className='NavDropdownMenu'>
                                 <NavLink eventKey={15} as={Link} to="/employer/profile">
                                     <FaBuilding /> Organizations

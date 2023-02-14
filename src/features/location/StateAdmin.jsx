@@ -9,8 +9,8 @@ import { useGetStatesQuery } from '../api/stateApi';
 import { logout } from '../auth/authSlice';
 import State from './State';
 
-const StateAdmin = () => {
-  const {data: states, isError, error } = useGetStatesQuery('');
+const StateAdmin = ({ queryString }) => {
+  const {data: states, isError, error } = useGetStatesQuery(queryString);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
@@ -39,6 +39,8 @@ const StateAdmin = () => {
     <Row className="g-3 y-2 JobCard RemoveSpace">
     <Col style={{margin: '1rem 0 0 0'}}> 
       <Row className="d-flex mb-4 mx-3">
+        <h5><strong>States</strong></h5>
+        <div class="Border mb-2 w-100"></div>
         <Link to={`/admin/location/state/add`} style={{float: 'right', fontSize: '1.5rem'}}>
             <FaPlusSquare color="#212121"/>
         </Link>

@@ -6,7 +6,7 @@ const Eta = ({ timeStamp }) => {
       timeStamp = new Date(timeStamp).toISOString()
       const date = parseISO(timeStamp);
       const timePeriod = differenceInDays(date, new Date());
-      timeLeft = `${timePeriod} days left`
+      timeLeft = timePeriod === 0 ? 'Today' : timePeriod < 0 ? `${Math.abs(timePeriod)} days ago` : `${timePeriod} days left`
     }
     return (
       <span title={timeStamp}>

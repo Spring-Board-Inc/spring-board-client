@@ -22,6 +22,10 @@ export const userApi = createApi({
             query: (id) => `/${id}`,
             invalidatesTags: ['Users']
         }),
+        getUserDetails: builder.query({
+            query: (id) => `/details/${id}`,
+            invalidatesTags: ['Users']
+        }),
         reactivate: builder.mutation({
             query: (id) => ({
                 url: `/reactivate/${id}`,
@@ -42,6 +46,7 @@ export const userApi = createApi({
 export const {
     useGetUserQuery,
     useGetUsersQuery,
+    useGetUserDetailsQuery,
     useSuspendMutation,
     useReactivateMutation
 } = userApi;

@@ -43,7 +43,6 @@ import UserAdmin from './features/user/UserAdmin';
 import JobAdmin from './features/job/JobAdmin';
 import Employers from './features/employer/Employers';
 import JobTypeAdmin from './features/jobType/JobTypeAdmin';
-import StateAdmin from './features/location/StateAdmin';
 import IndustryAdmin from './features/industry/IndustryAdmin';
 import EmployerDashboard from './components/private/EmployerDashboard';
 import EmployerJobs from './features/job/EmployerJobs';
@@ -72,11 +71,23 @@ import IndustryDetails from './features/industry/IndustryDetails';
 import NestedJobDetails from './features/job/NestedJobDetails';
 import JobApplicants from './features/employer/JobApplicants';
 import ApplicantDetails from './features/employer/ApplicantDetails';
+import AdminEmployerDetails from './features/employer/Styles/AdminEmployerDetails';
+import { useSelector } from 'react-redux';
+import Print from './Print';
+import AddCareerSummary from './features/summary/AddCareerSummary';
+import EditCareerSummary from './features/summary/EditCareerSummary';
+import Resume from './features/summary/Resume';
+import SummaryContainer from './features/summary/SummaryContainer';
 
 function App() {
+  const { showNav } = useSelector((state) => state.auth)
+  
   return (
     <>
-      <NavigationBar />
+      { showNav ? 
+        <NavigationBar /> :
+        <p></p>
+      }
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route path='/' element={<Home />} />
@@ -87,6 +98,7 @@ function App() {
           <Route path='confirm-email' element={<ConfirmEmail />} />
           <Route path='reset-password' element={<ResetPassword />} />
           <Route path='forgot-password' element={<ForgotPassword />} />
+          <Route path='print' element={<Print />} />
           <Route path='*' element={<PageNotFound />} />
           { /* Routes that require log in */}
           <Route element={<RequireAuth allowedRoles={[ROLES.Applicant, ROLES.Admin, ROLES.Employer, ROLES.SuperAdmin]} /> }>
@@ -116,6 +128,10 @@ function App() {
               <Route path='experience/:id/edit' element={<EditExperience />} />
               <Route path='certification/:id/edit' element={<EditCertification />} />
               <Route path='user-skill/:id/edit' element={<EditSkill />} />
+              <Route path='summary' element={<SummaryContainer />} />
+              <Route path='resume' element={<Resume />} />
+              <Route path='summary/add' element={<AddCareerSummary />} />
+              <Route path='summary/edit/:userId' element={<EditCareerSummary />} />
             </Route>
           </Route>
           { /* These routes requires you to be an admin or super admin */}
@@ -123,12 +139,13 @@ function App() {
             <Route path='admin' element={<AdminDashboard />}>
               <Route path='user' element={<UserAdmin />} />
               <Route path='job' element={<JobAdmin />} />
+              <Route path='job/:jobId' element={<JobDetails />} />
               <Route path='employer' element={<Employers />} />
+              <Route path='employer/:id' element={<AdminEmployerDetails />} />
               <Route path='job-type' element={<JobTypeAdmin />} />
               <Route path='job-type/add' element={<AddJobType />} />
               <Route path='job-type/:id/edit' element={<EditJobType />} />
               <Route path='job-type/:id' element={<JobTypeDetails />} />
-              <Route path='location/state' element={<StateAdmin />} />
               <Route path='location/state/add' element={<AddState />} />
               <Route path='location/state/:id/:countryid/edit' element={<EditState />} />
               <Route path='location/state/:id' element={<StateDetails />} />
@@ -163,7 +180,10 @@ function App() {
           </Route>
         </Route>
       </Routes>
-      <Footer />
+      { showNav ? 
+        <Footer /> :
+        <p></p>
+      }
     </>
   );
 }

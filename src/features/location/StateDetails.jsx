@@ -4,7 +4,7 @@ import { FaArrowLeft, FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { shortDateTime, shortLocalTime } from '../../helpers/Helpers'
+import { shortLocalTime } from '../../helpers/Helpers'
 import { useDeleteStateMutation, useGetStateQuery } from '../api/stateApi'
 import { logout } from '../auth/authSlice'
 
@@ -44,7 +44,7 @@ const StateDetails = () => {
  useEffect(() => {
     if(isSuccess){
         toast.success('Record successfully deleted.');
-        navigate('/admin/location/state', { replace: true })
+        navigate(`/admin/location/country`, { replace: true })
     }
  }, [isSuccess, navigate])
 
@@ -62,8 +62,8 @@ const StateDetails = () => {
                 </Card.Header>
                 <Card.Body>
                     <ListGroup variant="flush">
-                        <ListGroup.Item className="text-muted">Created: {shortDateTime(state?.CreatedAt)}, {shortLocalTime(state?.CreatedAt)}</ListGroup.Item>
-                        <ListGroup.Item className="text-muted">Updated: {shortDateTime(state?.UpdatedAt)}, {shortLocalTime(state?.UpdatedAt)}</ListGroup.Item>
+                        <ListGroup.Item className="text-muted">Created: {new Date(state?.CreatedAt).toDateString()}, {shortLocalTime(state?.CreatedAt)}</ListGroup.Item>
+                        <ListGroup.Item className="text-muted">Updated: {new Date(state?.UpdatedAt).toDateString()}, {shortLocalTime(state?.UpdatedAt)}</ListGroup.Item>
                         <ListGroup.Item>
                             <Link to={`${state?.CountryId}/edit`} style={{float: 'right'}}>
                                 <FaEdit color='#212121' size={20}/>

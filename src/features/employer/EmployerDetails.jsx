@@ -3,7 +3,7 @@ import { Button, Card, Col, ListGroup, Row } from 'react-bootstrap'
 import { FaArrowLeft, FaEdit } from 'react-icons/fa'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import EmployerDeleteModal from '../../components/private/modals/EmployerDeleteModal'
-import { shortDateTime, shortLocalTime } from '../../helpers/Helpers'
+import { shortLocalTime } from '../../helpers/Helpers'
 import { useGetEmployerQuery } from '../api/employerApi'
 
 const EmployerDetails = () => {
@@ -27,8 +27,8 @@ const EmployerDetails = () => {
                 <Card.Body>
                     <ListGroup variant="flush">
                         <ListGroup.Item>Email: {employer?.Email}</ListGroup.Item>
-                        <ListGroup.Item className="text-muted">Created: {shortDateTime(employer?.CreatedAt)}, {shortLocalTime(employer?.CreatedAt)}</ListGroup.Item>
-                        <ListGroup.Item className="text-muted">Updated: {shortDateTime(employer?.UpdatedAt)}, {shortLocalTime(employer?.UpdatedAt)}</ListGroup.Item>
+                        <ListGroup.Item className="text-muted">Created: {new Date(employer?.CreatedAt).toDateString()}, {shortLocalTime(employer?.CreatedAt)}</ListGroup.Item>
+                        <ListGroup.Item className="text-muted">Updated: {new Date(employer?.UpdatedAt).toDateString()}, {shortLocalTime(employer?.UpdatedAt)}</ListGroup.Item>
                         <ListGroup.Item>
                             <Link to={`edit`} style={{float: 'right'}}>
                                 <FaEdit color='#212121' size={20}/>

@@ -4,9 +4,10 @@ import { FaArrowLeft, FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import { shortDateTime, shortLocalTime } from '../../helpers/Helpers'
+import { shortLocalTime } from '../../helpers/Helpers'
 import { useDeleteCountryMutation, useGetCountryQuery } from '../api/countryApi'
 import { logout } from '../auth/authSlice'
+import StateAdmin from './StateAdmin'
 
 const CountryDetails = () => {
   const navigate = useNavigate();
@@ -63,8 +64,8 @@ const onDelete = async () => {
                 </Card.Header>
                 <Card.Body>
                     <ListGroup variant="flush">
-                        <ListGroup.Item className="text-muted">Created: {shortDateTime(country?.CreatedAt)}, {shortLocalTime(country?.CreatedAt)}</ListGroup.Item>
-                        <ListGroup.Item className="text-muted">Updated: {shortDateTime(country?.UpdatedAt)}, {shortLocalTime(country?.UpdatedAt)}</ListGroup.Item>
+                        <ListGroup.Item className="text-muted">Created: {new Date(country?.CreatedAt).toDateString()}, {shortLocalTime(country?.CreatedAt)}</ListGroup.Item>
+                        <ListGroup.Item className="text-muted">Updated: {new Date(country?.UpdatedAt).toDateString()}, {shortLocalTime(country?.UpdatedAt)}</ListGroup.Item>
                         <ListGroup.Item>
                             <Link to='edit' style={{float: 'right'}}>
                                 <FaEdit color='#212121' size={20}/>
@@ -90,6 +91,9 @@ const onDelete = async () => {
             </Card>
         </Col>
         <Col sm={0} md={2} lg={3}></Col>
+        <Row className='m-0'>
+            <StateAdmin queryString={`?CountryId=${id}`}/>
+        </Row>
     </Row>
   )
 }

@@ -118,6 +118,18 @@ export const quillFormats = [
     return `${Math.floor(months / 12)}y, ${months % 12}m`
   }
 
+  export const totalTime = (list) => {
+    let months = 0;
+    list.forEach(element => {
+        const nowDate = element?.EndDate === MIN_DATE ? new Date() : element?.EndDate;
+        months += differenceInMonths(parseISO(new Date(nowDate).toISOString()), parseISO(new Date(element?.StartDate).toISOString()))
+    });
+    const yearsString = Math.floor(months / 12) > 0 ? `${Math.floor(months / 12)} years`: `${Math.floor(months / 12)} year`;
+    const monthsString = months % 12 > 0 ? `${months % 12} months` : `${months % 12} month`;
+
+    return months <= 0 ? 'No Experience' : `${yearsString} ${monthsString}`
+  }
+
   export const toYearAndMonth = (date) => {
     const dateObj = new Date(date)
     const year = dateObj.getFullYear();

@@ -1,7 +1,8 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 const initialState = {
-    user: null
+    user: null,
+    showNav: true,
 }
 
 export const logout = createAsyncThunk('auth/logout', () => { 
@@ -17,6 +18,9 @@ export const authSlice = createSlice({
         },
         logOut: () => {
             localStorage.removeItem('user');
+        },
+        toggleNav: (state, action) => {
+            state.showNav = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -27,5 +31,5 @@ export const authSlice = createSlice({
     }
 });
 
-export const { setAuth } = authSlice.actions;
+export const { setAuth, toggleNav } = authSlice.actions;
 export default authSlice.reducer;

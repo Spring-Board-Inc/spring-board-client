@@ -9,7 +9,7 @@ import Alerts from "../../components/public/Commons/Alerts";
 
 const Jobs = () => {
     const { data: jobs, isLoading, isError, error } = useGetJobsQuery();
-    
+
     useEffect(() => {
         if(isError){
             toast.error(error?.data?.Message);

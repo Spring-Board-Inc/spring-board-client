@@ -6,6 +6,14 @@
   padding: 0;
 }
 
+.App-print-mode {
+  background-color: #ffffff;
+  min-height: 100vh;
+  min-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 .NavigationBar {
   margin: 0;
   padding: 0;

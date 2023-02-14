@@ -62,6 +62,9 @@ export const jobApi = createApi({
         getJobApplicants: builder.query({
             query: (id) => `job/${id}/applicants`,
             invalidatesTags: ['Job']
+        }),
+        getCompanyJobs: builder.query({
+            query: (companyId) => `/job/company-jobs/${companyId}`
         })
     })
 })
@@ -75,5 +78,6 @@ export const {
     useEditJobMutation,
     useGetRawJobQuery,
     useDeleteJobMutation,
-    useGetJobApplicantsQuery
+    useGetJobApplicantsQuery,
+    useGetCompanyJobsQuery
 } = jobApi;

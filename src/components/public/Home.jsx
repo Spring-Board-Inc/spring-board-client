@@ -4,8 +4,12 @@ import SearchBar from "./Commons/SearchBar";
 import Jobs from "../../features/job/Jobs";
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { toggleNav } from "../../features/auth/authSlice";
 
 const Home = () => {
+    const dispatch = useDispatch()
+    dispatch(toggleNav(true))
     const [urlData, setUrlData] = useState({
         token: '',
         userId: ''

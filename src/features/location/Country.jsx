@@ -6,7 +6,7 @@ const Country = ({ country }) => {
     <Card className="mb-2">
         <Card.Header className='JobCardHeader'>
             <Card.Title>{country?.Name}</Card.Title>
-            <Link to={`${country?.Id}`} style={{float: 'right'}}>Modify</Link>
+            <Link to={`${country?.Id}`} style={{float: 'right'}}>Details</Link>
         </Card.Header>
     </Card>
   )

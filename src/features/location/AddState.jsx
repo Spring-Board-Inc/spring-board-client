@@ -47,9 +47,9 @@ const AddState = () => {
   useEffect(() => {
       if(isSuccess){
           toast.success('Record successfully added.');
-          navigate('/admin/location/state', { replace: true })
+          navigate(`/admin/location/country/${countryId}`, { replace: true })
       }
-  }, [isSuccess, navigate])
+  }, [isSuccess, navigate, countryId])
 
 
   const [validated, setValidated] = useState(false);

@@ -24,6 +24,12 @@ function ApplicantDashboardTabs() {
       <Nav.Item>
         <Nav.Link eventKey="certification" as={Link} to="/info/certification">Certifications</Nav.Link>
       </Nav.Item>
+      <Nav.Item>
+        <Nav.Link eventKey="summary" as={Link} to="/info/summary">Summary</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link eventKey="resume" as={Link} to="/info/resume">Resume</Nav.Link>
+      </Nav.Item>
     </Nav>
   );
 }

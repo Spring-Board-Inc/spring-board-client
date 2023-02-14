@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import '../../App.css'
 import { useDeleteJobMutation, useGetJobQuery } from "../api/jobApi";
 import { logout } from "../auth/authSlice";
+import { differenceInDays, parseISO } from "date-fns";
 
 const JobDetails = () => {
     const { jobId } = useParams();
@@ -19,7 +20,17 @@ const JobDetails = () => {
     const navigate = useNavigate();
     const goBack = () => navigate(-1);
     const dispatch = useDispatch();
-    
+    const [days, setDays] = useState(0);
+
+    useEffect(() => {
+        if(job){
+            const timeStamp = new Date(job?.ClosingDate)?.toISOString()
+            const date = parseISO(timeStamp);
+            const days = differenceInDays(date, new Date());
+            setDays(days);
+        }
+    }, [job])
+
     useEffect( () => {
         if(isError){
             if(error?.status === 401){
@@ -62,7 +73,7 @@ const JobDetails = () => {
         <Row>
             <Col sm={0} md={1} lg={2} className='py-1'></Col>
             <Col sm={12} md={10} lg={8}  style={{margin: '4rem 0 0 0'}}>
-                { isLoading ? 
+                { isLoading ?
                     <DarkSpinner /> :
                     <>
                         {job && (
@@ -80,25 +91,39 @@ const JobDetails = () => {
                                     <Badge className='JobCardBadge mb-1' pill bg="secondary">{job?.JobType}</Badge>{' '}
                                     <Badge className='JobCardBadge mb-1' pill bg="secondary">N{job?.SalaryLowerRange} - N{job?.SalaryUpperRange}</Badge>{' '}
                                 </Card.Subtitle>
-                                <Card.Text className="RemoveSpace" dangerouslySetInnerHTML={{ __html: `${job?.Descriptions}` }}></Card.Text> 
+                                <Card.Text className="RemoveSpace" dangerouslySetInnerHTML={{ __html: `${job?.Descriptions}` }}></Card.Text>
                                 <Card.Text className="text-muted RemoveSpace">Numbers To Be Hired: {job?.NumbersToBeHired}</Card.Text>
                                 <Card.Text className="text-muted RemoveSpace">Posted:<TimeAgo timeStamp={job?.CreatedAt}/></Card.Text>
-                                <Card.Text className="text-muted RemoveSpace">Closing Date: <Eta timeStamp={job?.ClosingDate}/></Card.Text>
+                                <Card.Text className="text-muted RemoveSpace">
+                                    { days === 0 ?
+                                        <>
+                                            Closing: Today
+                                        </> : days < 0 ?
+                                        <>
+                                            Closed: <Eta timeStamp={job?.ClosingDate}/>
+                                        </> :
+                                        <>
+                                            Closing Date: {new Date(job?.ClosingDate).toDateString()}
+                                        </>
+                                    }
+                                </Card.Text>
                                 { (job.NumberOfApplicants === 0) ?
                                     <Card.Text className="text-muted RemoveSpace py-1">
                                         No one has applied
                                     </Card.Text> :
-                                    (job?.NumberOfApplicants === 1) ? 
+                                    (job?.NumberOfApplicants === 1 && user?.UserClaims?.Roles.includes(ROLES.Employer)) ?
                                         <Card.Text className="text-muted RemoveSpace py-1">
                                             <Link to={`applicants`}>
                                                 {job?.NumberOfApplicants} person has applied
                                             </Link>
-                                        </Card.Text> :
+                                        </Card.Text> : (job?.NumberOfApplicants > 1 && user?.UserClaims?.Roles.includes(ROLES.Employer)) ?
                                         <Card.Text className="text-muted RemoveSpace py-1">
                                             <Link to={`applicants`}>
                                                 {job?.NumberOfApplicants?.toLocaleString('en-US')} persons have applied
                                             </Link>
-                                        </Card.Text>   
+                                        </Card.Text> : (job?.NumberOfApplicants === 1 && !user?.UserClaims?.Roles.includes(ROLES.Employer)) ?
+                                        <Card.Text className="text-muted RemovedSpace px-1">{job?.NumberOfApplicants} person has applied</Card.Text> :
+                                        <Card.Text className="text-muted RemovedSpace px-1">{job?.NumberOfApplicants} persons have applied</Card.Text>
                                 }
                                 <Row className="centered">
                                 {(user && user?.UserClaims?.Roles?.includes(ROLES.Employer)) ?
@@ -129,7 +154,7 @@ const JobDetails = () => {
                                                 <Button className="btn-danger w-100 m-1" onClick={onDelete} disabled={isDelLoading}>Confirm!</Button>
                                             }
                                         </Col>
-                                     </> : 
+                                     </> :
                                      <>
                                         <Col sm={12} md={6} className='centered'>
                                             <Button className="btn-secondary w-100 m-1" style={{ border: 'none'}} onClick={goBack}>Back</Button>
