@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import Alerts from '../../components/public/Commons/Alerts';
+import ListSkeleton from '../../components/public/Commons/skeletons/ListSkeleton';
 import { useGetJobsQuery } from '../api/jobApi';
 import { logout } from '../auth/authSlice';
 import JobSummary from './JobSummary'
@@ -13,7 +14,7 @@ import JobSummary from './JobSummary'
 const EmployerJobs = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data: jobs, isError, error } = useGetJobsQuery();
+  const { data: jobs, isError, error, isLoading } = useGetJobsQuery();
   
   useEffect(() => {
     if(isError){
@@ -43,8 +44,12 @@ const EmployerJobs = () => {
           <Link to={`/employer/job/add`} style={{float: 'right', fontSize: '1.5rem'}}>
               <FaPlusSquare color="#212121"/>
           </Link>
-        </Row>     
-        <Row md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+        </Row> 
+        {
+          isLoading ?
+            <ListSkeleton height='15rem' /> :
+            <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+        }
       </Col>
     </Row>
   )

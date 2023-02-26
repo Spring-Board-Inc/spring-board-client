@@ -1,11 +1,11 @@
-import { Row, Col } from "react-bootstrap";
-import DarkSpinner from "../../components/public/Commons/DarkSpinner";
+import { Row, Col, Container } from "react-bootstrap";
 import JobSummary from "./JobSummary";
 import '../../App.css';
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useGetJobsQuery } from "../api/jobApi";
 import Alerts from "../../components/public/Commons/Alerts";
+import ListSkeleton from "../../components/public/Commons/skeletons/ListSkeleton";
 
 const Jobs = () => {
     const { data: jobs, isLoading, isError, error } = useGetJobsQuery();
@@ -29,14 +29,15 @@ const Jobs = () => {
           />
           
   return (
-    <Row xs={1} sm={1} md={1} lg={2} className="g-3 mx-1 JobCard">
-      { isLoading ? 
-        <DarkSpinner /> :
-        <>
-          { content }
-        </>
+    <Container fluid>
+      {
+        isLoading ?
+          <ListSkeleton height='18rem'/> :
+          <Row xs={1} sm={1} md={1} lg={2} className="g-3 mx-1 JobCard">
+            { content }
+          </Row>
       }
-    </Row>
+    </Container>
   )
 }
 

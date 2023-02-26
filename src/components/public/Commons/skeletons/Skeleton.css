@@ -82,6 +82,11 @@
     margin: 0.7rem;
     border-radius: 0.25rem;
   }
+
+  .skeleton-big-text {
+    width: 100%;
+    border-radius: 0.25rem;
+  }
   
   .skeleton-text__body {
     width: 75%;

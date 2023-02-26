@@ -1,5 +1,4 @@
 import { Row, Col, Card, Badge, Button } from "react-bootstrap";
-import DarkSpinner from '../../components/public/Commons/DarkSpinner';
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { ROLES } from "../../helpers/Helpers";
@@ -11,6 +10,7 @@ import '../../App.css'
 import { useDeleteJobMutation, useGetJobQuery } from "../api/jobApi";
 import { logout } from "../auth/authSlice";
 import { differenceInDays, parseISO } from "date-fns";
+import SingleCardSkeleton from "../../components/public/Commons/skeletons/SingleCardSkeleton";
 
 const JobDetails = () => {
     const { jobId } = useParams();
@@ -74,7 +74,7 @@ const JobDetails = () => {
             <Col sm={0} md={1} lg={2} className='py-1'></Col>
             <Col sm={12} md={10} lg={8}  style={{margin: '4rem 0 0 0'}}>
                 { isLoading ?
-                    <DarkSpinner /> :
+                    <SingleCardSkeleton height='25rem'/> :
                     <>
                         {job && (
                         <>

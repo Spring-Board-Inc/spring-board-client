@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import Alerts from '../../components/public/Commons/Alerts';
+import ListSkeleton from '../../components/public/Commons/skeletons/ListSkeleton';
 import { useGetJobApplicantsQuery } from '../api/jobApi';
 import { logout } from '../auth/authSlice';
 import ApplicantSummary from './ApplicantSummary';
@@ -13,7 +14,7 @@ const JobApplicants = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const dispatch = useDispatch()
-    const { data: applicants, isError, error } = useGetJobApplicantsQuery(id)
+    const { data: applicants, isLoading, isError, error } = useGetJobApplicantsQuery(id)
 
     useEffect(() => {
         if(isError){
@@ -37,11 +38,17 @@ const JobApplicants = () => {
           />
 
   return (
-    <Row className="g-3 y-2 JobCard RemoveSpace">
-      <Col style={{margin: '1rem 0 0 0'}}>      
-        <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
-      </Col>
-    </Row>
+    <>
+      {
+        isLoading ?
+          <ListSkeleton height='18rem' /> :
+          <Row className="g-3 y-2 JobCard RemoveSpace">
+            <Col style={{margin: '1rem 0 0 0'}}>      
+              <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+            </Col>
+          </Row>
+      }
+    </>
   )
 }
 
