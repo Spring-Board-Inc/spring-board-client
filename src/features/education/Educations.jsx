@@ -7,11 +7,12 @@ import { toast } from "react-toastify"
 import { useGetEducationsQuery } from "../api/educationApi"
 import { logout } from "../auth/authSlice"
 import EducationSummary from "./EducationSummary"
+import ListSkeleton from '../../components/public/Commons/skeletons/ListSkeleton'
 
 const Educations = () => {
   const { user } = useSelector((state) => state.auth);
   const userInfoId = user?.UserClaims?.UserInfomationId;
-  const { data: educations, isError, error } = useGetEducationsQuery(userInfoId);
+  const { data: educations, isLoading, isError, error } = useGetEducationsQuery(userInfoId);
   const navigate = useNavigate();
   const dispatch = useDispatch()
 
@@ -45,8 +46,12 @@ const Educations = () => {
           <Link to={`/info/education/add`} style={{float: 'right', fontSize: '1.5rem'}}>
               <FaPlusSquare color="#212121"/>
           </Link>
-        </Row>     
-        <Row md={1} lg={2} className="JobCard">{ content }</Row>
+        </Row>
+        {
+          isLoading ?
+            <ListSkeleton height='10rem'/> :
+            <Row md={1} lg={2} className="JobCard">{ content }</Row>
+        }
       </Col>
     </Row>
   )

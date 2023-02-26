@@ -10,8 +10,7 @@ import ApplicantCV from '../employer/ApplicantCV';
 const Resume = () => {
   const { user } = useSelector((state) => state.auth);
   const userId = user?.UserClaims?.UserId;
-  const { data: applicant, isError, error } = useGetUserDetailsQuery(userId);
-  console.log(applicant)
+  const { data: applicant, isLoading, isError, error } = useGetUserDetailsQuery(userId);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -43,7 +42,7 @@ const Resume = () => {
             onClick={hideNav}
             state={applicant}
         >Print</Link>
-        <ApplicantCV applicant={applicant} />
+        <ApplicantCV applicant={applicant} isLoading={isLoading}/>
     </Container>
   )
 }

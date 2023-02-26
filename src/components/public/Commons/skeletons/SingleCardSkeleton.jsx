@@ -3,7 +3,7 @@ import { Card, Col, Container, Row } from 'react-bootstrap'
 
 const SingleCardSkeleton = ({ height }) => {
   return (
-    <Container>
+    <Container className='mt-3'>
         <Row>
             <Col className='mb-2'>
                 <Card>

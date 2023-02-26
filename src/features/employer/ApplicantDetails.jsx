@@ -28,7 +28,7 @@ const ApplicantDetails = () => {
             onClick={hideNav}
             state={state}
         >Print</Link>
-        <ApplicantCV applicant={state} />
+        <ApplicantCV applicant={state} isLoading={false} />
     </Container>
   )
 }

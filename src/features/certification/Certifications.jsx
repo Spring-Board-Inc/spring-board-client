@@ -4,6 +4,7 @@ import { FaPlusSquare } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import ListSkeleton from "../../components/public/Commons/skeletons/ListSkeleton";
 import { useGetCertificationsQuery } from "../api/certificationApi";
 import { logout } from "../auth/authSlice";
 import CertificationSummary from "./CertificationSummary";
@@ -11,7 +12,7 @@ import CertificationSummary from "./CertificationSummary";
 const Certifications = () => {
     const { user } = useSelector((state) => state.auth);
     const userInfoId = user?.UserClaims?.UserInfomationId;
-    const { data: certifications, isError, error } = useGetCertificationsQuery(userInfoId);
+    const { data: certifications, isLoading, isError, error } = useGetCertificationsQuery(userInfoId);
     const navigate = useNavigate();
     const dispatch = useDispatch()
 
@@ -46,8 +47,12 @@ const Certifications = () => {
           <Link to={`/info/certification/add`} style={{float: 'right', fontSize: '1.5rem'}}>
               <FaPlusSquare color="#212121"/>
           </Link>
-        </Row>     
-        <Row md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+        </Row>
+        {
+          isLoading ?
+            <ListSkeleton height='8rem'/> :
+            <Row md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+        }
       </Col>
     </Row>
   )

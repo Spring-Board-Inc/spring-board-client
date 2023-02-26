@@ -4,10 +4,11 @@ import { FaArrowLeft, FaEdit, FaTrashAlt } from 'react-icons/fa'
 import { useDispatch } from 'react-redux'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
+import SingleCardSkeleton from '../../components/public/Commons/skeletons/SingleCardSkeleton'
 import { useDeleteSummaryMutation } from '../api/careerSummaryApi'
 import { logout } from '../auth/authSlice'
 
-const CareerSummary = ({ summary }) => {
+const CareerSummary = ({ summary, isLoading }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -50,32 +51,36 @@ const CareerSummary = ({ summary }) => {
 
   return (
     <Row>
-        <Card className='mt-3'>
-            <Card.Body>
-                <Card.Text>{summary?.CareerSummary}</Card.Text>
-                <Card.Text>
-                    <div className="Border mb-2 w-100"></div>
-                    <Link to={`edit/${summary?.UserId}`} style={{float: 'right'}}>
-                        <FaEdit color='#212121' size={20}/>
-                    </Link>
-                        { !show ?
-                            <>
-                            <Button className="DeButton px-3" style={{float: 'right'}} onClick={handleShow}>
-                                <FaTrashAlt color="red" size={20}/>
-                            </Button></> :
-                            <>
-                                { isDelLoading ?
-                                <Button className="mx-3 btn-danger" style={{float: 'right'}} disabled>Deleting...</Button> :
-                                <Button className="mx-3 btn-danger" style={{float: 'right'}} onClick={onDelete}>Delete</Button>
+        {
+            isLoading ?
+                <SingleCardSkeleton height='15rem'/> :
+                <Card className='mt-3'>
+                    <Card.Body>
+                        <Card.Text>{summary?.CareerSummary}</Card.Text>
+                        <Card.Text>
+                            <div className="Border mb-2 w-100"></div>
+                            <Link to={`edit/${summary?.UserId}`} style={{float: 'right'}}>
+                                <FaEdit color='#212121' size={20}/>
+                            </Link>
+                                { !show ?
+                                    <>
+                                    <Button className="DeButton px-3" style={{float: 'right'}} onClick={handleShow}>
+                                        <FaTrashAlt color="red" size={20}/>
+                                    </Button></> :
+                                    <>
+                                        { isDelLoading ?
+                                        <Button className="mx-3 btn-danger" style={{float: 'right'}} disabled>Deleting...</Button> :
+                                        <Button className="mx-3 btn-danger" style={{float: 'right'}} onClick={onDelete}>Delete</Button>
+                                        }
+                                    </>
                                 }
-                            </>
-                        }
-                    <Button className="DeButton" style={{float: 'right'}} onClick={goBack}>
-                        <FaArrowLeft color="gray"/>
-                    </Button>
-                </Card.Text>
-            </Card.Body>
-        </Card>
+                            <Button className="DeButton" style={{float: 'right'}} onClick={goBack}>
+                                <FaArrowLeft color="gray"/>
+                            </Button>
+                        </Card.Text>
+                    </Card.Body>
+                </Card>
+        }
     </Row>
   )
 }

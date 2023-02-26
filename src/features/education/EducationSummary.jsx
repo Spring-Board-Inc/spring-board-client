@@ -32,7 +32,7 @@ const EducationSummary = ( { education }) => {
             <Card.Text className="text-muted RemoveSpace">End Date: {shortDateTime(education?.EndDate)}.</Card.Text> :
             <Card.Text className="text-muted RemoveSpace">End Date: Running.</Card.Text>
             }
-            <Link to={`/info/education/${education?.Id}`} style={{float: 'right'}}>See Details</Link>
+            <Link to={`/info/education/${education?.Id}`} style={{float: 'right'}}>Modify</Link>
         </Card.Body>
     </Card>
   )

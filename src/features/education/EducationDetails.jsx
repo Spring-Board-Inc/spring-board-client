@@ -6,10 +6,11 @@ import { toast } from "react-toastify";
 import { useDeleteEducationMutation, useGetEducationQuery } from "../api/educationApi";
 import { logout } from "../auth/authSlice";
 import { useDispatch } from "react-redux";
+import SingleCardSkeleton from '../../components/public/Commons/skeletons/SingleCardSkeleton'
 
 const EducationDetails = () => {
     const { id } = useParams();
-    const { data: education, isError, error } = useGetEducationQuery(id);
+    const { data: education, isLoading, isError, error } = useGetEducationQuery(id);
     const [deleteEducation, { isSuccess, isError: delIsError, error: delError}] = useDeleteEducationMutation();
 
     const minDate = new Date('0001-01-01T00:00:00').getFullYear();
@@ -59,30 +60,34 @@ const EducationDetails = () => {
     <Row>
         <Col sm={0} md={1} lg={2}></Col>
         <Col sm={12} md={10} lg={8}>
-            <Card className='mt-3'>
-                <Card.Header className='JobCardHeader'>
-                    <Card.Text>{education?.School}, {education?.City}. {education?.Country}</Card.Text>
-                </Card.Header>
-                <Card.Body>
-                    <Card.Subtitle style={{borderBottom: '1px solid #eee', paddingBottom: '0.5rem'}}>{education?.LevelOfEducation}: {education?.Course}</Card.Subtitle>
-                    <Card.Text className="text-muted RemoveSpace">Start Date: {new Date(education?.StartDate).toDateString()}.</Card.Text>
-                    { minDate !== xpDate ?
-                    <Card.Text className="text-muted RemoveSpace">End Date: {new Date(education?.EndDate).toDateString()}.</Card.Text> :
-                    <Card.Text className="text-muted RemoveSpace">End Date: Running.</Card.Text>
-                    }
-                    <Button className="DeButton m-1" style={{float: 'right'}} onClick={onDelete}>
-                        <FaTimes color="red"/>
-                    </Button>
-                    <Button className="DeButton m-1" style={{float: 'right'}}>
-                        <Link to={`edit`}  className='EditLink'>
-                            <FaEdit color="blue"/>
-                        </Link>
-                    </Button>
-                    <Button className="DeButton m-1" style={{float: 'right'}} onClick={goBack}>
-                        <FaArrowLeft color="gray"/>
-                    </Button>
-                </Card.Body>
-            </Card>
+            {
+                isLoading ?
+                    <SingleCardSkeleton height='10rem'/> :
+                    <Card className='mt-3'>
+                        <Card.Header className='JobCardHeader'>
+                            <Card.Text>{education?.School}, {education?.City}. {education?.Country}</Card.Text>
+                        </Card.Header>
+                        <Card.Body>
+                            <Card.Subtitle style={{borderBottom: '1px solid #eee', paddingBottom: '0.5rem'}}>{education?.LevelOfEducation}: {education?.Course}</Card.Subtitle>
+                            <Card.Text className="text-muted RemoveSpace">Start Date: {new Date(education?.StartDate).toDateString()}.</Card.Text>
+                            { minDate !== xpDate ?
+                            <Card.Text className="text-muted RemoveSpace">End Date: {new Date(education?.EndDate).toDateString()}.</Card.Text> :
+                            <Card.Text className="text-muted RemoveSpace">End Date: Running.</Card.Text>
+                            }
+                            <Button className="DeButton m-1" style={{float: 'right'}} onClick={onDelete}>
+                                <FaTimes color="red"/>
+                            </Button>
+                            <Button className="DeButton m-1" style={{float: 'right'}}>
+                                <Link to={`edit`}  className='EditLink'>
+                                    <FaEdit color="blue"/>
+                                </Link>
+                            </Button>
+                            <Button className="DeButton m-1" style={{float: 'right'}} onClick={goBack}>
+                                <FaArrowLeft color="gray"/>
+                            </Button>
+                        </Card.Body>
+                    </Card>
+            }
         </Col>
         <Col sm={0} md={1} lg={2}></Col>
     </Row>

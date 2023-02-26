@@ -11,7 +11,7 @@ import CareerSummary from './CareerSummary';
 const SummaryContainer = () => {
     const { user } = useSelector((state) => state.auth);
     const userId = user?.UserClaims?.UserId;
-    const { data: summaries, isError, error } = useGetSummariesQuery(userId);
+    const { data: summaries, isLoading, isError, error } = useGetSummariesQuery(userId);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -33,7 +33,7 @@ const SummaryContainer = () => {
     const content = summaries?.length > 0 ?
         summaries?.map( summary => (
             <Container fluid key={summary?.Id}>
-                <CareerSummary summary={summary}/>
+                <CareerSummary summary={summary} isLoading={isLoading}/>
             </Container>
         )) :
         <Container className='mt-3'>
