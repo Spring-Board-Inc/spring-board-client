@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom'
 import Alerts from '../../components/public/Commons/Alerts'
 import Industry from './Industry'
 import { useGetIndustriesQuery } from '../api/industryApi'
+import AltListSkeleton from '../../components/public/Commons/skeletons/AltListSkeleton'
 
 const IndustryAdmin = () => {
-  const { data: industries } = useGetIndustriesQuery()
+  const { data: industries, isLoading } = useGetIndustriesQuery()
 
   const content = industries?.length > 0 ? 
   industries?.map( industry => (
@@ -28,7 +29,11 @@ return (
             <FaPlusSquare color="#212121"/>
         </Link>
       </Row>     
-      <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+      {
+        isLoading ?
+        <AltListSkeleton height='3rem'/> :
+        <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+      }
     </Col>
   </Row>
 )}

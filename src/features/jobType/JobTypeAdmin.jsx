@@ -5,9 +5,10 @@ import Alerts from '../../components/public/Commons/Alerts'
 import { FaPlusSquare } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useGetJobTypesQuery } from '../api/jobTypeApi';
+import AltListSkeleton from '../../components/public/Commons/skeletons/AltListSkeleton';
 
 const JobTypeAdmin = () => {
-  const { data: jobTypes } = useGetJobTypesQuery();
+  const { data: jobTypes, isLoading } = useGetJobTypesQuery();
   
   const content = jobTypes?.length > 0 ? 
         jobTypes?.map( jobType => (
@@ -28,7 +29,11 @@ const JobTypeAdmin = () => {
               <FaPlusSquare color="#212121"/>
           </Link>
         </Row>     
-        <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+        {
+          isLoading ?
+          <AltListSkeleton height='3rem'/> :
+          <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+        }
       </Col>
     </Row>
   )}

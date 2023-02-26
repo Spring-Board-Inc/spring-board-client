@@ -5,12 +5,13 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import Alerts from '../../components/public/Commons/Alerts';
+import AltListSkeleton from '../../components/public/Commons/skeletons/AltListSkeleton';
 import { useGetStatesQuery } from '../api/stateApi';
 import { logout } from '../auth/authSlice';
 import State from './State';
 
 const StateAdmin = ({ queryString }) => {
-  const {data: states, isError, error } = useGetStatesQuery(queryString);
+  const {data: states, isLoading, isError, error } = useGetStatesQuery(queryString);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
@@ -45,7 +46,11 @@ const StateAdmin = ({ queryString }) => {
             <FaPlusSquare color="#212121"/>
         </Link>
       </Row>     
-      <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+      {
+        isLoading ?
+        <AltListSkeleton height='3rem'/> :
+        <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+      }
     </Col>
   </Row>
   )

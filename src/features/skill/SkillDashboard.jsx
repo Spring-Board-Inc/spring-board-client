@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
 import Alerts from '../../components/public/Commons/Alerts';
+import AltListSkeleton from '../../components/public/Commons/skeletons/AltListSkeleton';
 import { useGetSkillsQuery } from '../api/skillApi';
 import { logout } from '../auth/authSlice';
 import AdminSkill from './AdminSkill'
@@ -12,7 +13,7 @@ import AdminSkill from './AdminSkill'
 const SkillDashboard = () => {
   const { user } = useSelector((state) => state.auth);
   const userInfoId = user?.UserClaims?.UserInfomationId;
-  const { data: skills, isError, error } = useGetSkillsQuery(userInfoId);
+  const { data: skills, isLoading, isError, error } = useGetSkillsQuery(userInfoId);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -45,7 +46,11 @@ const SkillDashboard = () => {
             <FaPlusSquare color="#212121"/>
         </Link>
       </Row>     
-      <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+      {
+        isLoading ?
+        <AltListSkeleton height='3rem'/> :
+        <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
+      }
     </Col>
   </Row>
   )
