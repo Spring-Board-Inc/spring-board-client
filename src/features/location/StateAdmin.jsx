@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap'
 import { FaPlusSquare } from 'react-icons/fa'
 import { useDispatch } from 'react-redux';
@@ -9,9 +9,12 @@ import AltListSkeleton from '../../components/public/Commons/skeletons/AltListSk
 import { useGetStatesQuery } from '../api/stateApi';
 import { logout } from '../auth/authSlice';
 import State from './State';
+import ReactPaginate from 'react-paginate';
 
-const StateAdmin = ({ queryString }) => {
-  const {data: states, isLoading, isError, error } = useGetStatesQuery(queryString);
+const StateAdmin = ({ countryId }) => {
+  const [pageNumber, setPageNumber] = useState(1)
+    const [searchTerm, setSearchTerm] = useState("")
+  const {data: states, isLoading, isError, error } = useGetStatesQuery({pageNumber, countryId, searchTerm});
   const navigate = useNavigate();
   const dispatch = useDispatch();
   
@@ -24,6 +27,11 @@ const StateAdmin = ({ queryString }) => {
       }
     }
   }, [error, isError, navigate, dispatch])
+
+  const HandlePageClick = ({ selected: PageNumber }) => {
+    setPageNumber(PageNumber + 1)
+    setSearchTerm("")
+  }
 
   const content = states?.Data?.length > 0 ? 
   states?.Data?.map( state => (
@@ -52,6 +60,26 @@ const StateAdmin = ({ queryString }) => {
         <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
       }
     </Col>
+
+    <ReactPaginate
+        previousLabel={"<<"}
+        nextLabel={">>"}
+        breakLabel={"..."}
+        pageCount={states?.MetaData.TotalPages}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={1}
+        containerClassName={"pagination justify-content-center mt-3"}
+        pageClassName={"page-item Pagination"}
+        pageLinkClassName={"page-link Pagination"}
+        previousClassName={"page-item Pagination"}
+        previousLinkClassName={"page-link Pagination"}
+        nextClassName={"page-item Pagination"}
+        nextLinkClassName={"page-link Pagination"}
+        breakLinkClassName={"page-link Pagination"}
+        breakClassName={"page-item Pagination"}
+        activeClassName="PaginationActive"
+        onPageChange={HandlePageClick}
+      />
   </Row>
   )
 }

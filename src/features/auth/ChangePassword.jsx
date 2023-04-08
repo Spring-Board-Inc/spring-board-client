@@ -30,6 +30,10 @@ const ChangePassword = () => {
     const dispatch = useDispatch();
     const from = location.state?.from?.pathname || '/profile';
 
+    const goBack = () => {
+      navigate(-1);
+    }
+
     useEffect(() => {
     const result = PWD_REGEX.test(newPassword)
     setValidNewPassword(result);
@@ -155,17 +159,22 @@ const ChangePassword = () => {
                       </p>
                   </Form.Group>
                 </Col>
-                <Col lg={12}>
-                { isLoading ? 
-                  <Button type="submit" className='RegistrationButton'>
-                      <Spinners />
-                  </Button> :
-                  <Button 
-                      type="submit"
-                      disabled={!validPasswordMatch || !validNewPassword ? true : false}
-                      className='RegistrationButton'>Submit
-                  </Button>
-                }
+              </Row>
+              <Row className="mb-3">
+                <Col sm={12} md={6} className='mb-3'>
+                    <Button variant='secondary' className='BackButton' onClick={goBack}>Back</Button>
+                </Col>
+                <Col sm={12} md={6}>
+                    { isLoading ? 
+                        <Button type="submit" className='RegistrationButton'>
+                          <Spinners />
+                        </Button> :
+                      <Button 
+                          type="submit"
+                          disabled={!validPasswordMatch || !validNewPassword ? true : false}
+                          className='RegistrationButton'>Submit
+                      </Button>
+                    }
                 </Col>
               </Row>
             </Form>

@@ -83,7 +83,7 @@ const NavigationBar = () => {
                                 </NavLink>
                             </NavDropdown.Item>
                             <NavDropdown.Item className='NavDropdownMenu RemoveBorderBottom'>
-                                <NavLink eventKey={15} as={Link} to="/admin/country">
+                                <NavLink eventKey={15} as={Link} to="/admin/location/country">
                                     <FaMapMarker /> Locations
                                 </NavLink>
                             </NavDropdown.Item>

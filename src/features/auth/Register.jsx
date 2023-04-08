@@ -49,13 +49,12 @@ const Register = () => {
         } = formData;
    
     const dispatch = useDispatch()
+    const pageNumber = 1;
+    const searchTerm = '';
 
     const [register, {data: reg, isLoading, isError, isSuccess, error }] = useRegisterMutation();
-    const { data: countries } = useGetCountriesQuery();
-    const { data: allStates } = useGetStatesQuery('');
-
-    const getStatesByCountry = (state) => state?.CountryId === countryId;
-    const states = allStates?.Data.filter(getStatesByCountry);
+    const { data: countries } = useGetCountriesQuery({pageNumber, searchTerm});
+    const { data: states } = useGetStatesQuery({ pageNumber, countryId, searchTerm });
 
     useEffect(() => {
         if(isError){
@@ -497,7 +496,7 @@ const Register = () => {
                                     aria-invalid={validState ? "false" : "true"}
                                     aria-describedby="statenote">
                                     <option></option>
-                                    { states && states?.map(state => (
+                                    { states?.Data && states?.Data?.map(state => (
                                         <option key={state?.Id}>{state?.AdminArea}</option>
                                     ))}
                                 </Form.Select>

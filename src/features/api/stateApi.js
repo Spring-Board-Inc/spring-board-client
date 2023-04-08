@@ -15,7 +15,7 @@ export const stateApi = createApi({
     tagTypes: ['State'],
     endpoints: (builder) => ({
         getStates: builder.query({
-            query: (queryString) => queryString,
+            query: ({pageNumber, countryId, searchTerm}) => `?CountryId=${countryId}&PageNumber=${pageNumber}&SearchBy=${searchTerm}`,
             providesTags: ['State']
         }),
         getState: builder.query({

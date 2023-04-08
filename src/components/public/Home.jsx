@@ -57,12 +57,12 @@ const Home = () => {
           <Col sm={0} md={1} lg={2}></Col>
       </Row>
       <Row className='py-5'>
-          <Col xs={0} md={1}></Col>
-          <Col xs={12} md={10}>
+          <Col sm={0} md={1} lg={2}></Col>
+          <Col sm={12} md={10} lg={8}>
               <Jobs
               />
           </Col>
-          <Col xs={0} md={1}></Col>
+          <Col sm={0} md={1} lg={2}></Col>
       </Row>
     </Container>
   )

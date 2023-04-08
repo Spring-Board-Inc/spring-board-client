@@ -15,7 +15,7 @@ export const jobApi = createApi({
     tagTypes: ['Job'],
     endpoints: (builder) => ({
         getJobs: builder.query({
-            query: () => `/job`,
+            query: ({ pageNumber, searchTerm }) => `/job?PageNumber=${pageNumber}&SearchBy=${searchTerm}`,
             providesTags: ['Job']
         }),
         getJobStats: builder.query({
@@ -64,7 +64,7 @@ export const jobApi = createApi({
             invalidatesTags: ['Job']
         }),
         getCompanyJobs: builder.query({
-            query: (companyId) => `/job/company-jobs/${companyId}`
+            query: ({ pageNumber, id, searchTerm }) => `/job/company-jobs/${id}?PageNumber=${pageNumber}&SearchBy=${searchTerm}`
         })
     })
 })

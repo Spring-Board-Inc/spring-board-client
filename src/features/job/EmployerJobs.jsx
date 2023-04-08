@@ -1,5 +1,5 @@
 //import { useEffect } from 'react'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { FaPlusSquare } from 'react-icons/fa';
 import { useDispatch } from 'react-redux';
@@ -10,11 +10,14 @@ import ListSkeleton from '../../components/public/Commons/skeletons/ListSkeleton
 import { useGetJobsQuery } from '../api/jobApi';
 import { logout } from '../auth/authSlice';
 import JobSummary from './JobSummary'
+import ReactPaginate from 'react-paginate';
 
 const EmployerJobs = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { data: jobs, isError, error, isLoading } = useGetJobsQuery();
+  const [pageNumber, setPageNumber] = useState(1);
+  const [searchTerm, setSearchTerm] = useState("");
+  const { data: jobs, isError, error, isLoading } = useGetJobsQuery({ pageNumber, searchTerm });
   
   useEffect(() => {
     if(isError){
@@ -25,6 +28,11 @@ const EmployerJobs = () => {
       }
     }
   }, [error, isError, navigate, dispatch])
+
+  const HandlePageClick = ({ selected: PageNumber }) => {
+    setPageNumber(PageNumber + 1)
+    setSearchTerm("")
+  }
 
   const content = jobs?.Data?.length > 0 ? 
       jobs?.Data?.map( job => (
@@ -51,6 +59,26 @@ const EmployerJobs = () => {
             <Row xs={1} sm={1} md={1} lg={2} className="g-3 JobCard">{ content }</Row>
         }
       </Col>
+
+      <ReactPaginate
+        previousLabel={"<<"}
+        nextLabel={">>"}
+        breakLabel={"..."}
+        pageCount={jobs?.MetaData.TotalPages}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={1}
+        containerClassName={"pagination justify-content-center mt-3"}
+        pageClassName={"page-item Pagination"}
+        pageLinkClassName={"page-link Pagination"}
+        previousClassName={"page-item Pagination"}
+        previousLinkClassName={"page-link Pagination"}
+        nextClassName={"page-item Pagination"}
+        nextLinkClassName={"page-link Pagination"}
+        breakLinkClassName={"page-link Pagination"}
+        breakClassName={"page-item Pagination"}
+        activeClassName="PaginationActive"
+        onPageChange={HandlePageClick}
+      />
     </Row>
   )
 }

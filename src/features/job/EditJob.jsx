@@ -19,12 +19,13 @@ const EditJob = () => {
   const { id } = useParams();
   const location = useLocation();
   let state = location.state;
+  const pageNumber = 1;
+  const searchTerm = '';
   const job = state;
   const { data: companies } = useGetEmployerQuery(''); 
-  const { data: industries } = useGetIndustriesQuery(); 
+  const { data: industries } = useGetIndustriesQuery();
   const { data: types } = useGetJobTypesQuery();
-  const { data: countries } = useGetCountriesQuery('');
-  const { data: allStates } = useGetStatesQuery('');
+  const { data: countries } = useGetCountriesQuery({pageNumber, searchTerm});
 
   const [formData, setFormData] = useState({
     title: job?.Title,
@@ -54,9 +55,7 @@ const EditJob = () => {
     salaryLowerRange, salaryUpperRange, numbersToBeHired
   } = formData;
 
-  const getStatesByCountry = (state) => state?.CountryId === countryId;
-  const states = allStates?.Data.filter(getStatesByCountry);
-
+  const { data: states } = useGetStatesQuery({pageNumber, countryId, searchTerm});
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -243,7 +242,7 @@ useEffect(() => {
                           onChange={onChange}
                       >
                           <option></option>
-                          { states && states?.map(state => (
+                          { states?.Data && states?.Data.map(state => (
                               <option key={state?.Id} value={state?.Id}>{state?.AdminArea}</option>
                           ))}
                       </Form.Select>

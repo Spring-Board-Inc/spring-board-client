@@ -4,7 +4,7 @@ import { FaPlus } from 'react-icons/fa'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useGetCountriesQuery } from '../api/countryApi';
+import { useGetCountriesNoPagingQuery } from '../api/countryApi';
 import { useAddStateMutation } from '../api/stateApi'
 import { logout } from '../auth/authSlice';
 
@@ -12,7 +12,7 @@ const AddState = () => {
   const navigate = useNavigate();
   const goBack = () => navigate(-1)
   const dispatch = useDispatch()
-  const { data: countries } = useGetCountriesQuery()
+  const { data: countries } = useGetCountriesNoPagingQuery()
 
   const [formData, setFormData] = useState({
     adminArea: '',

@@ -15,7 +15,11 @@ export const countryApi = createApi({
     tagTypes: ['Country'],
     endpoints: (builder) => ({
         getCountries: builder.query({
-            query: () => '',
+            query: ({pageNumber, searchTerm}) => `?PageNumber=${pageNumber}&SearchBy=${searchTerm}`,
+            providesTags: ['Country']
+        }),
+        getCountriesNoPaging: builder.query({
+            query: () => ``,
             providesTags: ['Country']
         }),
         getCountry: builder.query({
@@ -53,5 +57,6 @@ export const {
     useDeleteCountryMutation,
     useEditCountryMutation,
     useGetCountriesQuery,
-    useGetCountryQuery 
+    useGetCountryQuery,
+    useGetCountriesNoPagingQuery
 } = countryApi;
