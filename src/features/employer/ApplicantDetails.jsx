@@ -4,6 +4,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { toggleNav } from '../auth/authSlice';
 import ApplicantCV from './ApplicantCV';
 import './Styles/styles.css'
+import { FaPrint } from 'react-icons/fa';
 
 const ApplicantDetails = () => {
   const location = useLocation();
@@ -27,7 +28,7 @@ const ApplicantDetails = () => {
             to='/print' 
             onClick={hideNav}
             state={state}
-        >Print</Link>
+        ><FaPrint color='#212121'/></Link>
         <ApplicantCV applicant={state} isLoading={false} />
     </Container>
   )

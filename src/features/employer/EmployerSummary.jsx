@@ -8,9 +8,9 @@ const EmployerSummary = ({ employer }) => {
     <Card className="mb-2">
         <Card.Header className='JobCardHeader'>
             <Card.Img src={employer?.LogoUrl} className='JobCardImage'/>
-            <Card.Title>{employer?.Name}</Card.Title>
         </Card.Header>
         <Card.Body>
+            <Card.Title>{employer?.Name}</Card.Title>
             <ListGroup variant="flush">
                 <ListGroup.Item>Email: {employer?.Email}</ListGroup.Item>
                 <ListGroup.Item className="text-muted">Created: {new Date(employer?.CreatedAt).toDateString()}, {shortLocalTime(employer?.CreatedAt)}</ListGroup.Item>

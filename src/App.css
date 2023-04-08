@@ -267,6 +267,15 @@ input[type=checkbox] {
   min-height: 10vh;
 }
 
+.PaginationActive a {
+  background-color: #212121 !important;
+  color: #ededed !important;
+}
+
+.Pagination a {
+  color: #212121;
+}
+
 .JobStatsColumns {
   display: flex;
   justify-content: center;
@@ -293,12 +302,6 @@ input[type=checkbox] {
   align-items: center;
   justify-content: center;
   margin: 0;
-}
-
-.JobCardHeader {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
 }
 
 .JobCardImage {
@@ -391,3 +394,12 @@ input[type=checkbox] {
 .RemoveBorderBottom {
   border-bottom: none !important;
 }
+
+.DeLink {
+  text-decoration: none;
+  color: #212121;
+}
+
+.DeLink:hover {
+  color: #212121 !important;
+} 

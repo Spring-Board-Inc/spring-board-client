@@ -19,6 +19,8 @@ const AddJob = () => {
   const navigate = useNavigate();
   const goBack = () => navigate(-1)
   const dispatch = useDispatch()
+  const pageNumber = 1;
+  const searchTerm = '';
 
   const [formData, setFormData] = useState({
     title: '',
@@ -37,8 +39,7 @@ const AddJob = () => {
   const { data: companies } = useGetEmployersQuery(''); 
   const { data: industries } = useGetIndustriesQuery(); 
   const { data: types } = useGetJobTypesQuery();
-  const { data: countries } = useGetCountriesQuery('');
-  const { data: allStates } = useGetStatesQuery('');
+  const { data: countries } = useGetCountriesQuery({pageNumber, searchTerm});
   const [addJob, { isLoading, isSuccess, isError, error }] = useAddJobMutation()
 
   const [descriptions, setDescriptions] = useState()
@@ -48,8 +49,7 @@ const AddJob = () => {
     salaryLowerRange, salaryUpperRange, numbersToBeHired
   } = formData;
 
-  const getStatesByCountry = (state) => state?.CountryId === countryId;
-  const states = allStates?.Data.filter(getStatesByCountry);
+  const { data: states } = useGetStatesQuery({pageNumber, countryId, searchTerm});
 
   const onChange = (e) => {
     setFormData((prevState) => ({
@@ -234,7 +234,7 @@ useEffect(() => {
                           onChange={onChange}
                       >
                           <option></option>
-                          { states && states?.map(state => (
+                          { states?.Data && states?.Data?.map(state => (
                               <option key={state?.Id} value={state?.Id}>{state?.AdminArea}</option>
                           ))}
                       </Form.Select>

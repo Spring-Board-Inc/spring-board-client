@@ -12,9 +12,11 @@ const IndustryAdmin = () => {
 
   const content = industries?.length > 0 ? 
   industries?.map( industry => (
-    <Col key={industry?.Id}>
-      <Industry industry={industry}/>
-    </Col>
+    <Link to={`${industry.Id}`} className='DeLink'>
+      <Col key={industry?.Id}>
+        <Industry industry={industry}/>
+      </Col>
+    </Link>
   )) :
   <Alerts
       heading={`No Industry Record`} 

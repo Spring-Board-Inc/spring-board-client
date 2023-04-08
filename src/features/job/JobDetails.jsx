@@ -79,12 +79,12 @@ const JobDetails = () => {
                         {job && (
                         <>
                         <Card>
-                            <Card.Header className='JobCardHeader'>
+                            <Card.Header>
                                 <Card.Img src={job.LogoUrl} className='JobCardImage'/>
-                                <Card.Text>{job.Company}</Card.Text>
                             </Card.Header>
                             <Card.Body>
                                 <Card.Title>{job.Title}</Card.Title>
+                                <Card.Subtitle className="mb-2">{job?.Company}</Card.Subtitle>
                                 <Card.Subtitle>
                                     <Badge className='JobCardBadge mb-1' pill bg="secondary">{job?.City}, {job?.State}.</Badge>{' '}
                                     <Badge className='JobCardBadge mb-1' pill bg="secondary">{job?.Country}</Badge>{' '}

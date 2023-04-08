@@ -97,7 +97,7 @@ const onDelete = async () => {
         </Col>
         <Col sm={0} md={2} lg={3}></Col>
         <Row className='m-0'>
-            <StateAdmin queryString={`?CountryId=${id}`}/>
+            <StateAdmin countryId={country?.Id}/>
         </Row>
     </Row>
   )

@@ -66,6 +66,10 @@ export const profileApi = createApi({
                 responseHandler: (res) => res.text()
             }),
             invalidatesTags: ['Profile']
+        }),
+        getUserDetails: builder.query({
+            query: (id) => `/details/${id}`,
+            invalidatesTags: ['Profile']
         })
     })
 })
@@ -77,5 +81,6 @@ export const {
     useDeactivateMutation,
     useEditAddressMutation,
     useUploadPhotoMutation,
-    useUpdatePhotoMutation
+    useUpdatePhotoMutation,
+    useGetUserDetailsQuery
 } = profileApi;

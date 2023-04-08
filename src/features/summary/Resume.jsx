@@ -3,9 +3,10 @@ import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useGetUserDetailsQuery } from '../api/userApi';
 import { logout, toggleNav } from '../auth/authSlice';
 import ApplicantCV from '../employer/ApplicantCV';
+import { FaPrint } from 'react-icons/fa';
+import { useGetUserDetailsQuery } from '../api/profileApi';
 
 const Resume = () => {
   const { user } = useSelector((state) => state.auth);
@@ -41,7 +42,7 @@ const Resume = () => {
             to='/print' 
             onClick={hideNav}
             state={applicant}
-        >Print</Link>
+        ><FaPrint color='#212121'/></Link>
         <ApplicantCV applicant={applicant} isLoading={isLoading}/>
     </Container>
   )

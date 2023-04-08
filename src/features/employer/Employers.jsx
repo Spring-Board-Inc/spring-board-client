@@ -27,7 +27,9 @@ const Employers = () => {
   const content = employers?.Data?.length > 0 ? 
           employers.Data?.map( employer => (
             <Container fluid key={employer?.Id}>
-              <EmployerSummary employer={employer}/>
+              <Link to={`${employer?.Id}`} className='DeLink'>
+                <EmployerSummary employer={employer}/>
+              </Link>
             </Container>
           )) :
           <Alerts 

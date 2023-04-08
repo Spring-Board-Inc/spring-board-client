@@ -6,13 +6,18 @@ import { useSelector } from "react-redux";
 import { useEditAddressMutation, useGetUserProfileQuery } from "../api/profileApi";
 import { toast } from "react-toastify";
 import { FaEdit } from "react-icons/fa";
+import { useGetCountriesNoPagingQuery } from "../api/countryApi";
+import { useGetStatesQuery } from "../api/stateApi";
 
 const EditAddress = () => {
     const { user } = useSelector((state) => state.auth);
     const { id } = useParams();
+    const pageNumber = 1;
+    const searchTerm = ''
 
     const { data: profile, isError: isProfileError, error: profileError } = useGetUserProfileQuery(id);
     const [editAddress, { data, isLoading, isSuccess, isError, error }] = useEditAddressMutation()
+    const { data: countries } = useGetCountriesNoPagingQuery(); 
 
     const [formData, setFormData] = useState({
         street: profile?.Street,
@@ -24,6 +29,11 @@ const EditAddress = () => {
 
     const { street, city, postalCode, state, country } = formData;
     const navigate = useNavigate();
+    const findCountry = (data) => data?.Name === country;
+    const countryByName = countries?.Data.find(findCountry);
+    const countryId = countryByName?.Id;
+
+    const { data: states } = useGetStatesQuery({pageNumber, countryId, searchTerm})
 
     const goBack = () => navigate(-1);
 
@@ -119,19 +129,15 @@ const EditAddress = () => {
                               <Form.Group>
                                 <Form.Select
                                     required
-                                    id="state"
-                                    name="state"
-                                    value={state}
+                                    id="country"
+                                    name="country"
+                                    value={country}
                                     onChange={onChange}
                                 >
-                                    <option>Select State</option>
-                                    <option>Abia</option>
-                                    <option>Adamawa</option>
-                                    <option>Akwa Ibom</option>
-                                    <option>Federal Capital Territory</option>
-                                    <option>Anambra</option>
-                                    <option>Kwara</option>
-                                    <option>Lagos</option>
+                                    <option></option>
+                                    {countries?.Data && countries?.Data?.map(country =>
+                                        <option key={country?.Id}>{country?.Name}</option>
+                                    )}
                                 </Form.Select>
                               </Form.Group>
                             </Col>
@@ -139,13 +145,15 @@ const EditAddress = () => {
                               <Form.Group>
                                 <Form.Select
                                     required
-                                    id="country"
-                                    name="country"
-                                    value={country}
+                                    id="state"
+                                    name="state"
+                                    value={state}
                                     onChange={onChange}
                                 >
-                                    <option>Select Country</option>
-                                    <option>Nigeria</option>
+                                    <option></option>
+                                    {states?.Data && states?.Data.map(state => 
+                                        <option key={state?.Id}>{state?.AdminArea}</option>
+                                    )}
                                 </Form.Select>
                               </Form.Group>
                             </Col>
