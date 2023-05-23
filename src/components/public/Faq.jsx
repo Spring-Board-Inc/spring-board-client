@@ -1,10 +1,10 @@
-import { Accordion, Col, Container, Row } from 'react-bootstrap'
+import { Accordion, Button, Col, Container, Row } from 'react-bootstrap'
 import { useGetFaqsQuery } from '../../features/api/faqApi'
 import { useState } from 'react'
 import SingleCardSkeleton from './Commons/skeletons/SingleCardSkeleton'
 import Alerts from './Commons/Alerts'
 import ReactPaginate from 'react-paginate'
-import { FaChevronCircleLeft, FaChevronCircleRight } from 'react-icons/fa'
+import { FaArrowLeft, FaChevronCircleLeft, FaChevronCircleRight, FaEdit, FaTrashAlt } from 'react-icons/fa'
 
 const Faq = () => {
   const [pageNumber, setPageNumber] = useState(1)
@@ -38,7 +38,11 @@ const Faq = () => {
                   faqs?.Data && faqs?.Data.map(faq => (
                     <Accordion.Item eventKey={faq?.Id}>
                       <Accordion.Header>{faq?.Question}</Accordion.Header>
-                      <Accordion.Body>{faq?.Answer}</Accordion.Body>
+                      <Accordion.Body>
+                        <Row>
+                          {faq?.Answer}
+                        </Row>
+                      </Accordion.Body>
                     </Accordion.Item>
                   )) :
                   <Alerts

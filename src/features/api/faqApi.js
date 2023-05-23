@@ -20,21 +20,21 @@ export const faqApi = createApi({
         }),
         getFaq: builder.query({
             query: (id) => `${id}`,
-            invalidatesTags: ['Faq']
+            providesTags: ['Faq']
         }),
         addFaq: builder.mutation({
-            query: ({ id, data}) => ({
+            query: ({ formData }) => ({
                 url: ``,
                 method: 'POST',
-                body: data
+                body: formData
             }),
             invalidatesTags: ['Faq']
         }),
         editFaq: builder.mutation({
-            query: ({ id, data}) => ({
+            query: ({ id, formData }) => ({
                 url: `${id}`,
                 method: 'PUT',
-                body: data
+                body: formData
             }),
             invalidatesTags: ['Faq']
         }),

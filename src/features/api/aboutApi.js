@@ -15,10 +15,10 @@ export const aboutApi = createApi({
     tagTypes: ['About'],
     endpoints: (builder) => ({
         createAbout: builder.mutation({
-            query: (about) => ({
+            query: (formData) => ({
                 url: '',
                 method: 'POST',
-                body: about
+                body: formData
             }),
             providesTags: ["About"]
         }),
@@ -31,10 +31,10 @@ export const aboutApi = createApi({
             invalidatesTags: ["About"]
         }),
         updateAbout: builder.mutation({
-            query: ({id, about }) => ({
+            query: ({id, formData }) => ({
                 url: `/${id}`,
                 method: 'PATCH',
-                body: about
+                body: formData
             }),
             invalidatesTags: ["About"]
         }),

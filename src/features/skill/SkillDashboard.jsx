@@ -15,7 +15,6 @@ import ReactPaginate from 'react-paginate';
 const SkillDashboard = () => {
   const [pageNumber, setPageNumber] = useState(1);
   const [searchTerm, setSearchTerm] = useState('')
-  console.log(pageNumber, searchTerm)
   const { data: skills, isLoading, isError, error } = useGetSkillsQuery({ pageNumber, searchTerm });
   const navigate = useNavigate();
   const dispatch = useDispatch();

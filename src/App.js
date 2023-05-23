@@ -86,6 +86,10 @@ import ContactAdmin from './features/contact/ContactAdmin';
 import FaqsAdmin from './features/faqs/FaqsAdmin';
 import AddAbout from './features/about/AddAbout';
 import EditAbout from './features/about/EditAbout';
+import AboutDetails from './features/about/AboutDetails';
+import FaqDetails from './features/faqs/FaqDetails';
+import EditFaq from './features/faqs/EditFaq';
+import AddFaq from './features/faqs/AddFaq';
 
 function App() {
   const { showNav } = useSelector((state) => state.auth)
@@ -174,9 +178,13 @@ function App() {
               <Route path='skill/:id/edit' element={<EditAdminSkill />} />
               <Route path='about' element={<AboutAdmin />} />
               <Route path='about/add' element={<AddAbout />} />
+              <Route path='about/:id' element={<AboutDetails />} />
               <Route path='about/edit/:id' element={<EditAbout />} />
               <Route path='contact' element={<ContactAdmin />} />
               <Route path='faqs' element={<FaqsAdmin />} />
+              <Route path='faqs/:id' element={<FaqDetails />} />
+              <Route path='faqs/:id/edit' element={<EditFaq />} />
+              <Route path='faqs/add' element={<AddFaq />} />
             </Route>
           </Route>
           { /* These routes requires you to be an employer */}
