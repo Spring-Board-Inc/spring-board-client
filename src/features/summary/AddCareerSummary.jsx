@@ -85,19 +85,19 @@ const AddCareerSummary = () => {
                       <Form.Control.Feedback type="invalid">This field is required!</Form.Control.Feedback>
                     </Form.Group>
                   </Row>
-                    <Row className="mb-3">
-                        <Col sm={12} md={6} className='mb-2'>
-                            <Button variant='secondary' className='BackButton' onClick={goBack} disabled={isLoading}>Back</Button>
-                        </Col>
-                        <Col sm={12} md={6} className='mb-2'>
-                            { isLoading ? 
-                                <Button type="submit" className='RegistrationButton' disabled>
-                                    Saving...
-                                </Button> :
-                                <Button type="submit" className='RegistrationButton'>Save</Button>
-                            }
-                        </Col>
-                    </Row>
+                  <Row className="mb-3">
+                    <Col sm={12} md={6} className='mb-2'>
+                        <Button variant='secondary' className='BackButton' onClick={goBack} disabled={isLoading}>Back</Button>
+                    </Col>
+                    <Col sm={12} md={6} className='mb-2'>
+                        { isLoading ? 
+                            <Button type="submit" className='RegistrationButton' disabled>
+                                Saving...
+                            </Button> :
+                            <Button type="submit" className='RegistrationButton'>Save</Button>
+                        }
+                    </Col>
+                  </Row>
                 </Form>
             </Card>
         </Col>

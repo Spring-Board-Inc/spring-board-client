@@ -8,9 +8,9 @@ import { atLeastFiveCharacters, atLeastTwoCharacters, isValidPhoneNumber, PWD_RE
 import Spinners from '../../components/public/Commons/Spinner';
 import '../../App.css'
 import { useRegisterMutation } from "../api/authApi";
-import { useGetCountriesQuery } from "../api/countryApi";
-import { useGetStatesQuery } from "../api/stateApi";
+import { useGetCountriesNoPagingQuery } from "../api/countryApi";
 import { GENDERS } from "../../helpers/Helpers";
+import { useGetStatesNoPagingQuery } from "../api/stateApi";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -28,7 +28,7 @@ const Register = () => {
         postalCode: '',
         state: '',
         countryId: '',
-        roleIndex: 0
+        roleIndex: 1
     });
 
     const firstNameRef = useRef();
@@ -49,12 +49,10 @@ const Register = () => {
         } = formData;
    
     const dispatch = useDispatch()
-    const pageNumber = 1;
-    const searchTerm = '';
 
     const [register, {data: reg, isLoading, isError, isSuccess, error }] = useRegisterMutation();
-    const { data: countries } = useGetCountriesQuery({pageNumber, searchTerm});
-    const { data: states } = useGetStatesQuery({ pageNumber, countryId, searchTerm });
+    const { data: countries } = useGetCountriesNoPagingQuery();
+    const { data: states } = useGetStatesNoPagingQuery(countryId);
 
     useEffect(() => {
         if(isError){
@@ -84,7 +82,7 @@ const Register = () => {
         }
         setValidated(true);
         e.preventDefault();
-        const country = countries?.Data.filter((country) => country?.Id === countryId)[0]?.Name;
+        const country = countries?.filter((country) => country?.Id === countryId)[0]?.Name;
         const userData = {
             firstName,
             lastName,
@@ -449,7 +447,7 @@ const Register = () => {
                                     aria-invalid={validCountry ? "false" : "true"}
                                     aria-describedby="countrynote">
                                     <option></option>
-                                    { countries?.Data && countries?.Data?.map(country => (
+                                    { countries && countries?.map(country => (
                                         <option key={country?.Id} value={country?.Id}>{country?.Name}</option>
                                     ))}
                                 </Form.Select>
@@ -496,7 +494,7 @@ const Register = () => {
                                     aria-invalid={validState ? "false" : "true"}
                                     aria-describedby="statenote">
                                     <option></option>
-                                    { states?.Data && states?.Data?.map(state => (
+                                    { states && states?.map(state => (
                                         <option key={state?.Id}>{state?.AdminArea}</option>
                                     ))}
                                 </Form.Select>

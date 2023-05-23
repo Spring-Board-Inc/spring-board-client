@@ -15,7 +15,11 @@ export const industryApi = createApi({
     tagTypes: ['Industry'],
     endpoints: (builder) => ({
         getIndustries: builder.query({
-            query: () => ``,
+            query: ({ pageNumber, searchTerm }) => `?PageNumber=${pageNumber}&SearchBy=${searchTerm}`,
+            providesTags: ['Industry']
+        }),
+        getIndustriesNoPaging: builder.query({
+            query: () => `/all`,
             providesTags: ['Industry']
         }),
         getIndustry: builder.query({
@@ -53,5 +57,6 @@ export const {
     useDeleteIndustryMutation,
     useEditIndustryMutation,
     useGetIndustryQuery,
-    useGetIndustriesQuery
+    useGetIndustriesQuery,
+    useGetIndustriesNoPagingQuery
 } = industryApi;

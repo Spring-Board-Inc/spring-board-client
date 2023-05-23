@@ -20,7 +20,7 @@ export const jobApi = createApi({
         }),
         getJobStats: builder.query({
             query: () => `/job/stats`,
-            providesTags: ['Job']
+            invalidatesTags: ['Job']
         }),
         getJob: builder.query({
             query: (id) => `/job/${id}`

@@ -18,6 +18,10 @@ export const stateApi = createApi({
             query: ({pageNumber, countryId, searchTerm}) => `?CountryId=${countryId}&PageNumber=${pageNumber}&SearchBy=${searchTerm}`,
             providesTags: ['State']
         }),
+        getStatesNoPaging: builder.query({
+            query: (countryId) => `/all/${countryId}`,
+            providesTags: ['State']
+        }),
         getState: builder.query({
             query: (id) => `/${id}`,
             invalidatesTags: ['State']
@@ -53,5 +57,6 @@ export const {
     useDeleteStateMutation,
     useEditStateMutation,
     useGetStatesQuery,
-    useGetStateQuery 
+    useGetStateQuery,
+    useGetStatesNoPagingQuery
 } = stateApi;

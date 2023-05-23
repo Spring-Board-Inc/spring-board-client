@@ -116,7 +116,7 @@ const Login = () => {
                             </Col>
                         </Row>
                         { 
-                            code === 400 ? <p style={ {color: '#fe0000'} }>Forgot password? <Link to="/reset-password">Reset</Link></p> : <p style={ {color: '#212121'} }>Don't have an account? <Link to="/signup">Sign up</Link></p>
+                            code === 400 ? <p style={ {color: '#fe0000'} }>Forgot password? <Link to="/reset-password">Reset</Link></p> : <p style={ {color: '#212121'} }>Don't have an account? <Link to="/register">Sign up</Link></p>
                         }
                     </Form>
                 </Col>

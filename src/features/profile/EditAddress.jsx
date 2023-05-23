@@ -7,13 +7,11 @@ import { useEditAddressMutation, useGetUserProfileQuery } from "../api/profileAp
 import { toast } from "react-toastify";
 import { FaEdit } from "react-icons/fa";
 import { useGetCountriesNoPagingQuery } from "../api/countryApi";
-import { useGetStatesQuery } from "../api/stateApi";
+import { useGetStatesNoPagingQuery } from "../api/stateApi";
 
 const EditAddress = () => {
     const { user } = useSelector((state) => state.auth);
     const { id } = useParams();
-    const pageNumber = 1;
-    const searchTerm = ''
 
     const { data: profile, isError: isProfileError, error: profileError } = useGetUserProfileQuery(id);
     const [editAddress, { data, isLoading, isSuccess, isError, error }] = useEditAddressMutation()
@@ -30,10 +28,10 @@ const EditAddress = () => {
     const { street, city, postalCode, state, country } = formData;
     const navigate = useNavigate();
     const findCountry = (data) => data?.Name === country;
-    const countryByName = countries?.Data.find(findCountry);
+    const countryByName = countries?.find(findCountry);
     const countryId = countryByName?.Id;
 
-    const { data: states } = useGetStatesQuery({pageNumber, countryId, searchTerm})
+    const { data: states } = useGetStatesNoPagingQuery(countryId)
 
     const goBack = () => navigate(-1);
 
@@ -135,7 +133,7 @@ const EditAddress = () => {
                                     onChange={onChange}
                                 >
                                     <option></option>
-                                    {countries?.Data && countries?.Data?.map(country =>
+                                    {countries && countries?.map(country =>
                                         <option key={country?.Id}>{country?.Name}</option>
                                     )}
                                 </Form.Select>
@@ -151,7 +149,7 @@ const EditAddress = () => {
                                     onChange={onChange}
                                 >
                                     <option></option>
-                                    {states?.Data && states?.Data.map(state => 
+                                    {states && states.map(state => 
                                         <option key={state?.Id}>{state?.AdminArea}</option>
                                     )}
                                 </Form.Select>

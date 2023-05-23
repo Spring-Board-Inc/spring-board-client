@@ -142,3 +142,11 @@ export const quillFormats = [
     const dateObj = new Date(date);
     return isMinDate ? 'CURRENT' : `${months[dateObj.getMonth()]}., ${dateObj.getFullYear()}`
   }
+
+  export const toEmailLink = (address) => {
+    return `mailto:${address}`
+  }
+
+  export const toPhoneLink = (phone, ext) => {
+    return `tel:${phone}${ext}`
+  }

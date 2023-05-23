@@ -4,7 +4,7 @@ import { FaPlus } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useGetSkillsQuery } from "../api/skillApi";
+import { useGetSkillsNoPagingQuery } from "../api/skillApi";
 import { logout } from "../auth/authSlice";
 import { skillLevels } from "../../helpers/Helpers";
 import { useAddUserSkillMutation } from "../api/userSkillApi";
@@ -14,7 +14,7 @@ const AddSkill = () => {
     const { user } = useSelector((state) => state.auth);
     const userInfoId = user?.UserClaims?.UserInfomationId;
 
-    const { data: skills, isError, error } = useGetSkillsQuery();
+    const { data: skills, isError, error } = useGetSkillsNoPagingQuery();
     const navigate = useNavigate();
     const dispatch = useDispatch();
 

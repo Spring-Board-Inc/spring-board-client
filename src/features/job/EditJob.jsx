@@ -7,25 +7,23 @@ import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import EditorToolbar, { formats, modules } from '../../components/public/Commons/EditorToolbar'
 import { yyyyMmDd } from '../../helpers/Helpers'
-import { useGetCountriesQuery } from '../api/countryApi'
+import { useGetCountriesNoPagingQuery } from '../api/countryApi'
 import { useGetEmployerQuery } from '../api/employerApi'
-import { useGetIndustriesQuery } from '../api/industryApi'
+import { useGetIndustriesNoPagingQuery } from '../api/industryApi'
 import { useEditJobMutation } from '../api/jobApi'
 import { useGetJobTypesQuery } from '../api/jobTypeApi'
-import { useGetStatesQuery } from '../api/stateApi'
+import { useGetStatesNoPagingQuery } from '../api/stateApi'
 import { logout } from '../auth/authSlice'
 
 const EditJob = () => {
   const { id } = useParams();
   const location = useLocation();
   let state = location.state;
-  const pageNumber = 1;
-  const searchTerm = '';
   const job = state;
   const { data: companies } = useGetEmployerQuery(''); 
-  const { data: industries } = useGetIndustriesQuery();
+  const { data: industries } = useGetIndustriesNoPagingQuery();
   const { data: types } = useGetJobTypesQuery();
-  const { data: countries } = useGetCountriesQuery({pageNumber, searchTerm});
+  const { data: countries } = useGetCountriesNoPagingQuery();
 
   const [formData, setFormData] = useState({
     title: job?.Title,
@@ -55,7 +53,7 @@ const EditJob = () => {
     salaryLowerRange, salaryUpperRange, numbersToBeHired
   } = formData;
 
-  const { data: states } = useGetStatesQuery({pageNumber, countryId, searchTerm});
+  const { data: states } = useGetStatesNoPagingQuery(countryId);
   const onChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -226,7 +224,7 @@ useEffect(() => {
                           onChange={onChange}
                         >
                           <option></option>
-                          { countries && countries?.Data?.map(country => (
+                          { countries && countries?.map(country => (
                               <option key={country?.Id} value={country?.Id}>{country?.Name}</option>
                           ))}
                       </Form.Select>
@@ -242,7 +240,7 @@ useEffect(() => {
                           onChange={onChange}
                       >
                           <option></option>
-                          { states?.Data && states?.Data.map(state => (
+                          { states && states.map(state => (
                               <option key={state?.Id} value={state?.Id}>{state?.AdminArea}</option>
                           ))}
                       </Form.Select>

@@ -78,6 +78,14 @@ import AddCareerSummary from './features/summary/AddCareerSummary';
 import EditCareerSummary from './features/summary/EditCareerSummary';
 import Resume from './features/summary/Resume';
 import SummaryContainer from './features/summary/SummaryContainer';
+import About from './components/public/About';
+import Contact from './components/public/Contact';
+import Faq from './components/public/Faq';
+import AboutAdmin from './features/about/AboutAdmin';
+import ContactAdmin from './features/contact/ContactAdmin';
+import FaqsAdmin from './features/faqs/FaqsAdmin';
+import AddAbout from './features/about/AddAbout';
+import EditAbout from './features/about/EditAbout';
 
 function App() {
   const { showNav } = useSelector((state) => state.auth)
@@ -99,6 +107,9 @@ function App() {
           <Route path='reset-password' element={<ResetPassword />} />
           <Route path='forgot-password' element={<ForgotPassword />} />
           <Route path='print' element={<Print />} />
+          <Route path='about' element={<About />} />
+          <Route path='contact' element={<Contact />} />
+          <Route path='faq' element={<Faq />} />
           <Route path='*' element={<PageNotFound />} />
           { /* Routes that require log in */}
           <Route element={<RequireAuth allowedRoles={[ROLES.Applicant, ROLES.Admin, ROLES.Employer, ROLES.SuperAdmin]} /> }>
@@ -161,6 +172,11 @@ function App() {
               <Route path='skill/add' element={<AddAdminSkill />} />
               <Route path='skill/:id' element={<AdminSkillDetails />} />
               <Route path='skill/:id/edit' element={<EditAdminSkill />} />
+              <Route path='about' element={<AboutAdmin />} />
+              <Route path='about/add' element={<AddAbout />} />
+              <Route path='about/edit/:id' element={<EditAbout />} />
+              <Route path='contact' element={<ContactAdmin />} />
+              <Route path='faqs' element={<FaqsAdmin />} />
             </Route>
           </Route>
           { /* These routes requires you to be an employer */}

@@ -1,5 +1,5 @@
 import { Navbar, Container, Nav, NavLink, Button, NavDropdown } from 'react-bootstrap';
-import { FaHome, FaUsers, FaUser, FaSignOutAlt, FaSignInAlt, FaUserPlus, FaGraduationCap, FaBriefcase, FaCogs, FaBookOpen, FaMapMarker, FaIndustry, FaBuilding, FaClipboard, FaBook } from 'react-icons/fa';
+import { FaHome, FaUsers, FaUser, FaSignOutAlt, FaSignInAlt, FaUserPlus, FaGraduationCap, FaBriefcase, FaCogs, FaBookOpen, FaMapMarker, FaIndustry, FaBuilding, FaClipboard, FaBook, FaQuestion } from 'react-icons/fa';
 import { useNavigate, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../../../features/auth/authSlice';
@@ -26,6 +26,9 @@ const NavigationBar = () => {
                     </Nav.Link>
                     <NavLink eventKey={2} as={Link} to="/about" className="NavLink">
                         <FaUsers /> ABOUT US
+                    </NavLink>
+                    <NavLink eventKey={19} as={Link} to="/contact" className="NavLink">
+                        <FaBook /> CONTACT US
                     </NavLink>
                 </Nav>
                 <Nav className='me-auto'>
@@ -95,6 +98,21 @@ const NavigationBar = () => {
                             <NavDropdown.Item className='NavDropdownMenu RemoveBorderBottom'>
                                 <NavLink eventKey={14} as={Link} to="/admin/skill">
                                     <FaCogs /> Skills
+                                </NavLink>
+                            </NavDropdown.Item>
+                            <NavDropdown.Item className='NavDropdownMenu RemoveBorderBottom'>
+                                <NavLink eventKey={14} as={Link} to="/admin/about">
+                                    <FaUsers /> About Us
+                                </NavLink>
+                            </NavDropdown.Item>
+                            <NavDropdown.Item className='NavDropdownMenu RemoveBorderBottom'>
+                                <NavLink eventKey={14} as={Link} to="/admin/contact">
+                                    <FaBook /> Contacts
+                                </NavLink>
+                            </NavDropdown.Item>
+                            <NavDropdown.Item className='NavDropdownMenu RemoveBorderBottom'>
+                                <NavLink eventKey={14} as={Link} to="/admin/faqs">
+                                    <FaQuestion /> FAQs
                                 </NavLink>
                             </NavDropdown.Item>
                         </NavDropdown>

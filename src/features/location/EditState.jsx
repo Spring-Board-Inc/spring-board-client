@@ -4,7 +4,7 @@ import { FaEdit } from 'react-icons/fa'
 import { useDispatch } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { useGetCountriesQuery } from '../api/countryApi';
+import { useGetCountriesNoPagingQuery } from '../api/countryApi';
 import { useEditStateMutation, useGetStateQuery } from '../api/stateApi';
 import { logout } from '../auth/authSlice';
 
@@ -14,7 +14,7 @@ const EditState = () => {
   const goBack = () => navigate(-1)
   const dispatch = useDispatch()
   
-  const { data: countries } = useGetCountriesQuery()
+  const { data: countries } = useGetCountriesNoPagingQuery()
   const { data: state } = useGetStateQuery(id)
 
   const [formData, setFormData] = useState({

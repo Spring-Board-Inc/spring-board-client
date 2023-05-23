@@ -30,6 +30,15 @@ const AdminDashboardTabs = () => {
       <Nav.Item>
         <Nav.Link eventKey="skills" as={Link} to="/admin/skill">Skills</Nav.Link>
       </Nav.Item>
+      <Nav.Item>
+        <Nav.Link eventKey="about" as={Link} to="/admin/about">About</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link eventKey="contact" as={Link} to="/admin/contact">Contacts</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link eventKey="faqs" as={Link} to="/admin/faqs">FAQs</Nav.Link>
+      </Nav.Item>
     </Nav>
   )
 }

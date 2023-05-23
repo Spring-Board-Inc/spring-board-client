@@ -17,7 +17,7 @@ const SocialMedia = () => {
                 </a>
             </Col>
             <Col>
-                <a href='/www.facebook.com/toba.ojo1' className='ContactLinks text-muted Centered'>
+                <a href='www.facebook.com/toba.ojo1' className='ContactLinks text-muted Centered'>
                     <FaTwitter />
                 </a>
             </Col>

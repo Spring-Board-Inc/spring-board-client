@@ -199,6 +199,30 @@
   font-weight: bold;
 }
 
+.BoldText {
+  font-weight: bold;
+}
+
+.AboutHover:hover {
+  background-color: #212121;
+  color: #ededed;
+  cursor: pointer;
+}
+
+.SmallFont {
+  font-size: small;
+  line-height: 0.9rem;
+}
+
+.DarkRoundBg {
+  background-color: #212121;
+  color: #ededed;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 20%;
+  margin: auto;
+}
+
 .RegistrationLabel {
   margin-bottom: 0 !important;
   padding-bottom: 0 !important;

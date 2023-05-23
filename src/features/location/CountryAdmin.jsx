@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap'
-import { FaPlusSquare } from 'react-icons/fa'
+import { FaChevronCircleLeft, FaChevronCircleRight, FaPlusSquare } from 'react-icons/fa'
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify';
@@ -62,8 +62,8 @@ const CountryAdmin = () => {
     </Col>
 
     <ReactPaginate
-        previousLabel={"<<"}
-        nextLabel={">>"}
+        previousLabel={<FaChevronCircleLeft color='#212121'/>}
+        nextLabel={<FaChevronCircleRight color='#212121'/>}
         breakLabel={"..."}
         pageCount={countries?.MetaData.TotalPages}
         marginPagesDisplayed={2}

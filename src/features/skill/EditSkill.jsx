@@ -3,7 +3,7 @@ import Spinners from "../../components/public/Commons/Spinner";
 import { FaEdit } from "react-icons/fa";
 import { skillLevels } from "../../helpers/Helpers";
 import { useDispatch, useSelector } from "react-redux";
-import { useGetSkillsQuery } from "../api/skillApi";
+import { useGetSkillsNoPagingQuery } from "../api/skillApi";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { useEditUserSkillMutation, useGetUserSkillQuery } from "../api/userSkillApi";
@@ -16,7 +16,7 @@ const EditSkill = () => {
     const userInfoId = user?.UserClaims?.UserInfomationId;
     const ids = { skillId: id, userInfoId }
 
-    const { data: skills, isError, error } = useGetSkillsQuery();
+    const { data: skills, isError, error } = useGetSkillsNoPagingQuery();
     const { data: skill } = useGetUserSkillQuery(ids);
 
     const navigate = useNavigate();

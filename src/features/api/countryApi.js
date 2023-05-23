@@ -19,7 +19,7 @@ export const countryApi = createApi({
             providesTags: ['Country']
         }),
         getCountriesNoPaging: builder.query({
-            query: () => ``,
+            query: () => `/all`,
             providesTags: ['Country']
         }),
         getCountry: builder.query({

@@ -8,10 +8,11 @@ import Alerts from "../../components/public/Commons/Alerts";
 import ListSkeleton from "../../components/public/Commons/skeletons/ListSkeleton";
 import ReactPaginate from "react-paginate";
 import '../../App.css'
+import { FaChevronCircleLeft, FaChevronCircleRight } from "react-icons/fa";
 
 const Jobs = () => {
     const [pageNumber, setPageNumber] = useState(1)
-    const [searchTerm, setSearchTerm] = useState("")
+    const [searchTerm, setSearchTerm] = useState('')
     const { data: jobs, isLoading, isError, error } = useGetJobsQuery({pageNumber, searchTerm});
 
     useEffect(() => {
@@ -48,8 +49,8 @@ const Jobs = () => {
       }
 
       <ReactPaginate
-        previousLabel={"<<"}
-        nextLabel={">>"}
+        previousLabel={<FaChevronCircleLeft color="#212121"/>}
+        nextLabel={<FaChevronCircleRight color="#212121"/>}
         breakLabel={"..."}
         pageCount={jobs?.MetaData.TotalPages}
         marginPagesDisplayed={2}

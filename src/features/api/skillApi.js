@@ -15,8 +15,12 @@ export const skillApi = createApi({
     tagTypes: ['Skill'],
     endpoints: (builder) => ({
         getSkills: builder.query({
-            query: () => ``,
+            query: ({ pageNumber, searchTerm }) => `?PageNumber=${pageNumber}&SearchBy=${searchTerm}`,
             providesTags: ['Skill']
+        }),
+        getSkillsNoPaging: builder.query({
+            query: () => `/all`,
+            invalidatesTags: ['Skill']
         }),
         getSkill: builder.query({
             query: (id) => `/${id}`,
@@ -53,5 +57,6 @@ export const {
     useDeleteSkillMutation,
     useEditSkillMutation,
     useGetSkillQuery,
-    useGetSkillsQuery
+    useGetSkillsQuery,
+    useGetSkillsNoPagingQuery
 } = skillApi;
