@@ -45,7 +45,7 @@ export const yyyyMmDd = (data) => {
 export const ratingColor = (level) => {
     let color = '';
     if(level === 'Beginer'){
-        color = rating.Beginner
+        color = rating.Beginer
     } else if(level === 'Proficient'){
         color = rating.Proficient
     } else if(level === 'Advance'){
