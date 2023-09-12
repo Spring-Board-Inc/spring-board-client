@@ -92,7 +92,7 @@ import EditFaq from './features/faqs/EditFaq';
 import AddFaq from './features/faqs/AddFaq';
 
 function App() {
-  const { showNav } = useSelector((state) => state.auth)
+  const { showNav } = useSelector((state) => state.auth);
   
   return (
     <>
