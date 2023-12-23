@@ -1,10 +1,10 @@
-import { Accordion, Button, Col, Container, Row } from 'react-bootstrap'
+import { Accordion, Col, Container, Row } from 'react-bootstrap'
 import { useGetFaqsQuery } from '../../features/api/faqApi'
 import { useState } from 'react'
 import SingleCardSkeleton from './Commons/skeletons/SingleCardSkeleton'
 import Alerts from './Commons/Alerts'
 import ReactPaginate from 'react-paginate'
-import { FaArrowLeft, FaChevronCircleLeft, FaChevronCircleRight, FaEdit, FaTrashAlt } from 'react-icons/fa'
+import { FaChevronCircleLeft, FaChevronCircleRight } from 'react-icons/fa'
 
 const Faq = () => {
   const [pageNumber, setPageNumber] = useState(1)
