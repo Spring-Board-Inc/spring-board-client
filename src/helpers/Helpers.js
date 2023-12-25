@@ -44,7 +44,7 @@ export const yyyyMmDd = (data) => {
 
 export const ratingColor = (level) => {
     let color = '';
-    if(level === 'Beginer'){
+    if(level === 'Beginner'){
         color = rating.Beginer
     } else if(level === 'Proficient'){
         color = rating.Proficient
@@ -109,7 +109,7 @@ export const quillFormats = [
     'background'
   ];
 
-  export const skillLevels = ["Beginer", "Proficient", "Advance", "Expert"];
+  export const skillLevels = ["Beginner", "Proficient", "Advance", "Expert"];
   export const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
   export const differenceInTime = (startDate, endDate) => {
