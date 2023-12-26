@@ -16,11 +16,11 @@ export const careerSummaryApi = createApi({
     endpoints: (builder) => ({
         getSummaries: builder.query({
             query: (userId) => `/all/${userId}`,
-            invalidatesTags: ['Summary']
+            providesTags: ['Summary']
         }),
         getSummary: builder.query({
             query: (userId) => `/${userId}`,
-            invalidatesTags: ['Summary']
+            providesTags: ['Summary']
         }),
         addSummary: builder.mutation({
             query: (data) => ({
@@ -28,7 +28,7 @@ export const careerSummaryApi = createApi({
                 method: 'POST',
                 body: data
             }),
-            providesTags: ['Summary']
+            invalidatesTags: ['Summary']
         }),
         editSummary: builder.mutation({
             query: ({ id, formData }) => ({

@@ -28,7 +28,7 @@ export const employerApi = createApi({
                 method: 'POST',
                 body: data
             }),
-            providesTags: ['Employer']
+            invalidatesTags: ['Employer']
         }),
         editEmployer: builder.mutation({
             query: (data) => ({

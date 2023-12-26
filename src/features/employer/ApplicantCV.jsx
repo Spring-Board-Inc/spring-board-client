@@ -16,7 +16,7 @@ const ApplicantCV = ({ applicant, isLoading }) => {
                 <h1 style={{ fontWeight: 'bold'}} className='text-center mt-3'>{applicant?.FirstName} {applicant?.LastName}</h1>
             }
             <div className='CenterSearchBar d-flex'>
-                <div class="Border" style={{width: '90%'}}></div>
+                <div className="Border" style={{width: '90%'}}></div>
             </div>
             {
                 isLoading ?
@@ -67,7 +67,7 @@ const ApplicantCV = ({ applicant, isLoading }) => {
         </Row>
         <Row className='d-flex mx-5'>
             <h5 className='mb-0' style={{ fontWeight: 'bold'}}>QUALIFICATIONS</h5>
-            <div class="Border mb-2 w-100"></div>
+            <div className="Border mb-2 w-100"></div>
             {
                 isLoading ?
                 <SingleCardSkeleton height='10rem'/> :
@@ -86,7 +86,7 @@ const ApplicantCV = ({ applicant, isLoading }) => {
         </Row>
         <Row className='d-flex mx-5'>
             <h5 className='mb-0' style={{ fontWeight: 'bold'}}>CERTIFICATIONS</h5>
-            <div class="Border mb-2 w-100"></div>
+            <div className="Border mb-2 w-100"></div>
             {
                 isLoading ?
                 <SingleCardSkeleton height='10rem'/> :
@@ -106,7 +106,7 @@ const ApplicantCV = ({ applicant, isLoading }) => {
             }
         </Row>
         <Card.Subtitle className='mx-5 mt-1'><h5 className='mb-0 mx-3' style={{ fontWeight: 'bold'}}>SKILLS</h5>
-            <div class="Border mb-2 w-100"></div>
+            <div className="Border mb-2 w-100"></div>
             {
                 isLoading ?
                 <SingleCardSkeleton height='3rem'/> :

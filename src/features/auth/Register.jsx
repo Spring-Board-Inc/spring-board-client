@@ -28,7 +28,7 @@ const Register = () => {
         postalCode: '',
         state: '',
         countryId: '',
-        roleIndex: 1
+        roleIndex: 0
     });
 
     const firstNameRef = useRef();
@@ -45,7 +45,7 @@ const Register = () => {
             postalCode,
             state,
             countryId,
-            roleIndex 
+            roleIndex
         } = formData;
    
     const dispatch = useDispatch()

@@ -1,7 +1,5 @@
 import { Button, Card, Col, Form, Row } from 'react-bootstrap'
-import ReactQuill from 'react-quill'
 import { FaPlus } from "react-icons/fa";
-import EditorToolbar, { modules, formats } from "../../components/public/Commons/EditorToolbar";
 import "react-quill/dist/quill.snow.css";
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -40,11 +38,9 @@ const AddJob = () => {
   const { data: countries } = useGetCountriesNoPagingQuery();
   const [addJob, { isLoading, isSuccess, isError, error }] = useAddJobMutation()
 
-  const [descriptions, setDescriptions] = useState()
-
   const { title, closingDate, companyId, 
     industryId, city, typeId, countryId, stateId,
-    salaryLowerRange, salaryUpperRange, numbersToBeHired
+    salaryLowerRange, salaryUpperRange, numbersToBeHired, descriptions
   } = formData;
 
   const { data: states } = useGetStatesNoPagingQuery(countryId);
@@ -54,10 +50,6 @@ const AddJob = () => {
       ...prevState,
       [e.target.name]: e.target.value
     }))
-  }
-
-  const handleChange = value => {
-      setDescriptions(value)
   }
 
   const [validated, setValidated] = useState(false);
@@ -281,20 +273,19 @@ useEffect(() => {
                     </Form.Group>
                   </Row>
                   <Row className="mb-1">
-                    <Form.Group>
-                      <Form.Label className='RegistrationLabel'>Job Description</Form.Label>
-                      <div className="text-editor">   
-                          <EditorToolbar />
-                          <ReactQuill
-                              theme="snow"
-                              value={descriptions}
-                              onChange={handleChange}
-                              placeholder={"Job descriptions..."}
-                              modules={modules}
-                              formats={formats}
-                              required
-                          />
-                      </div>
+                    <Form.Group as={Col} className='mb-2'>
+                      <Form.Label>Job Description</Form.Label>
+                      <Form.Control
+                        required
+                        as='textarea'
+                        rows={5}
+                        id="descriptions"
+                        name="descriptions"
+                        value={descriptions}
+                        onChange={onChange}
+                        placeholder='Write the job descriptions'
+                      />
+                      <Form.Control.Feedback type="invalid">Job description is required!</Form.Control.Feedback>
                     </Form.Group>
                   </Row>
                     <Row className="mb-3 mt-2">

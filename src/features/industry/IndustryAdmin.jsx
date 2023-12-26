@@ -21,7 +21,7 @@ const IndustryAdmin = () => {
 
   const content = industries?.Data.length > 0 ? 
   industries?.Data.map(industry => (
-    <Link to={`${industry.Id}`} className='DeLink'>
+    <Link to={`${industry.Id}`} className='DeLink' key={industry?.Id}>
         <Col key={industry?.Id}>
           <Industry industry={industry}/>
         </Col>

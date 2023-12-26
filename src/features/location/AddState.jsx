@@ -98,7 +98,7 @@ const AddState = () => {
                           onChange={onChange}
                       >
                           <option></option>
-                          { countries?.Data && countries?.Data?.map(country => (
+                          { countries && countries?.map(country => (
                               <option key={country?.Id} value={country?.Id}>{country?.Name}</option>
                           ))}
                       </Form.Select>

@@ -8,8 +8,6 @@ import { MIN_DATE, yyyyMmDd } from "../../helpers/Helpers";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import { logout } from "../auth/authSlice";
-import EditorToolbar, { modules, formats } from "../../components/public/Commons/EditorToolbar";
-import ReactQuill from "react-quill";
 
 const EditExperience = () => {
   const { id } = useParams();
@@ -20,12 +18,11 @@ const EditExperience = () => {
     designation: experience?.Designation,
     location: experience?.Location,
     startDate: yyyyMmDd(experience.StartDate),
-    endDate: experience?.EndDate === MIN_DATE? '' : yyyyMmDd(experience.EndDate)
+    endDate: experience?.EndDate === MIN_DATE? '' : yyyyMmDd(experience.EndDate),
+    descriptions: experience?.Descriptions
 });
 
-const [descriptions, setDescriptions] = useState(experience?.Descriptions)
-
-const { company, designation, location, startDate, endDate } = formData;
+const { company, designation, location, startDate, endDate, descriptions } = formData;
 const navigate = useNavigate();
 
 const goBack = () => navigate(-1);
@@ -72,10 +69,6 @@ const onSubmit = async (e) => {
   }
   await editExperience(userData);
 }
-
-const handleChange = value => {
-  setDescriptions(value)
-};
 
   return (
     <Row>
@@ -156,19 +149,19 @@ const handleChange = value => {
                     </Row>
                     <Row className="mb-3">
                         <Col lg={12} className='mb-1'>
-                            <Form.Group>
-                                <Form.Label className='RegistrationLabel'>Job Description</Form.Label>
-                                <div className="text-editor">   
-                                    <EditorToolbar />
-                                    <ReactQuill
-                                        theme="snow"
-                                        value={descriptions}
-                                        onChange={handleChange}
-                                        placeholder={"Job descriptions..."}
-                                        modules={modules}
-                                        formats={formats}
-                                    />
-                                </div>
+                            <Form.Group as={Col} className='mb-2'>
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control
+                                    required
+                                    as='textarea'
+                                    rows={5}
+                                    id="descriptions"
+                                    name="descriptions"
+                                    value={descriptions}
+                                    onChange={onChange}
+                                    placeholder='Write the descriptions'
+                                />
+                                <Form.Control.Feedback type="invalid">Description is required!</Form.Control.Feedback>
                             </Form.Group>
                         </Col>
                     </Row>

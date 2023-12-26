@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Card, Col, Form, Row } from 'react-bootstrap'
 import { FaEdit } from 'react-icons/fa'
-import ReactQuill from 'react-quill'
 import { useDispatch } from 'react-redux'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'react-toastify'
-import EditorToolbar, { formats, modules } from '../../components/public/Commons/EditorToolbar'
 import { yyyyMmDd } from '../../helpers/Helpers'
 import { useGetCountriesNoPagingQuery } from '../api/countryApi'
 import { useGetEmployerQuery } from '../api/employerApi'
@@ -32,12 +30,12 @@ const EditJob = () => {
     companyId: job?.CompanyId,
     industryId: job?.IndustryId,
     countryId: job?.CountryId,
-    stateId: '',
+    stateId: job?.StateId,
     city: job?.City,
     typeId: job?.TypeId,
     numbersToBeHired: job?.NumbersToBeHired,
     salaryLowerRange: job?.SalaryLowerRange,
-    salaryUpperRange: job?.SalaryUpperRange
+    salaryUpperRange: job?.SalaryUpperRange,
   })
 
   const navigate = useNavigate();
@@ -46,11 +44,9 @@ const EditJob = () => {
 
   const [editJob, { isLoading, isSuccess, isError, error }] = useEditJobMutation()
 
-  const [descriptions, setDescriptions] = useState(job?.Descriptions);
-
   const { title, closingDate, companyId, 
     industryId, city, typeId, countryId, stateId,
-    salaryLowerRange, salaryUpperRange, numbersToBeHired
+    salaryLowerRange, salaryUpperRange, numbersToBeHired, descriptions
   } = formData;
 
   const { data: states } = useGetStatesNoPagingQuery(countryId);
@@ -59,10 +55,6 @@ const EditJob = () => {
       ...prevState,
       [e.target.name]: e.target.value
     }))
-  }
-
-  const handleChange = value => {
-      setDescriptions(value)
   }
 
   const [validated, setValidated] = useState(false);
@@ -289,21 +281,20 @@ useEffect(() => {
                     </Form.Group>
                   </Row>
                   <Row className="mb-1">
-                    <Form.Group>
-                      <Form.Label className='RegistrationLabel'>Job Description</Form.Label>
-                      <div className="text-editor">   
-                          <EditorToolbar />
-                          <ReactQuill
-                              theme="snow"
-                              value={descriptions}
-                              onChange={handleChange}
-                              placeholder={"Job descriptions..."}
-                              modules={modules}
-                              formats={formats}
-                              required
-                          />
-                      </div>
-                    </Form.Group>
+                    <Form.Group as={Col} className='mb-2'>
+                        <Form.Label>Job Description</Form.Label>
+                        <Form.Control
+                          required
+                          as='textarea'
+                          rows={5}
+                          id="descriptions"
+                          name="descriptions"
+                          value={descriptions}
+                          onChange={onChange}
+                          placeholder='Write the job descriptions'
+                        />
+                        <Form.Control.Feedback type="invalid">Job description is required!</Form.Control.Feedback>
+                      </Form.Group>
                   </Row>
                     <Row className="mb-3 mt-2">
                         <Col sm={12} md={6} className='mb-1'>

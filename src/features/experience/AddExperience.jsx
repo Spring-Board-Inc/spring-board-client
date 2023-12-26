@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Card, Form, Button } from "react-bootstrap";
 import { FaPlus } from "react-icons/fa";
-import EditorToolbar, { modules, formats } from "../../components/public/Commons/EditorToolbar";
-import "react-quill/dist/quill.snow.css";
-import ReactQuill from "react-quill";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useAddExperienceMutation } from "../api/experienceApi";
@@ -18,14 +15,14 @@ const AddExperience = () => {
     const dispatch = useDispatch()
 
     const [addExperience, { isLoading, isError, error, isSuccess} ] = useAddExperienceMutation();
-    const [descriptions, setDescriptions] = useState(null)
 
     const [formData, setFormData] = useState({
         company: "",
         location: "",
         designation: "",
         startDate: "",
-        endDate: ""
+        endDate: "",
+        descriptions: ""
       });
 
     const goBack = () => navigate(-1);
@@ -35,7 +32,8 @@ const AddExperience = () => {
             location,
             designation,
             startDate,
-            endDate
+            endDate,
+            descriptions
     } = formData;
 
     useEffect(() => {
@@ -79,10 +77,6 @@ const AddExperience = () => {
             [e.target.name] : e.target.value,
         }))
     }
-  
-    const handleChange = value => {
-        setDescriptions(value)
-    };
 
   return (
     <Row>
@@ -163,19 +157,19 @@ const AddExperience = () => {
                     </Row>
                     <Row className="mb-3">
                         <Col lg={12} className='mb-1'>
-                            <Form.Group>
-                                <Form.Label className='RegistrationLabel'>Job Description</Form.Label>
-                                <div className="text-editor">   
-                                    <EditorToolbar />
-                                    <ReactQuill
-                                        theme="snow"
-                                        value={descriptions}
-                                        onChange={handleChange}
-                                        placeholder={"Write something awesome..."}
-                                        modules={modules}
-                                        formats={formats}
-                                    />
-                                </div>
+                            <Form.Group as={Col} className='mb-2'>
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control
+                                    required
+                                    as='textarea'
+                                    rows={5}
+                                    id="descriptions"
+                                    name="descriptions"
+                                    value={descriptions}
+                                    onChange={onChange}
+                                    placeholder='Write the job descriptions'
+                                />
+                                <Form.Control.Feedback type="invalid">Description is required!</Form.Control.Feedback>
                             </Form.Group>
                         </Col>
                     </Row>

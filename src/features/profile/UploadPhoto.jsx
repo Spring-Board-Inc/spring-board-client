@@ -18,7 +18,6 @@ const UploadPhoto = () => {
 
     const [uploadPhoto, { isLoading, isSuccess, isError, error }] = useUploadPhotoMutation();
     const [photo, setPhoto] = useState();
-    console.log(isError, error)
 
     useEffect(() => {
         if(isError){
