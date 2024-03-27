@@ -28,7 +28,7 @@ const JobStats = () => {
                     <>
                         <Card.Body className='JobStatsCard'>
                             <Card.Text className='JobStatsText'>{jobStat?.ActiveJobs}</Card.Text>
-                            <Card.Text className='JobStatsText'>Jobs</Card.Text>
+                            <Card.Text className='JobStatsText'>Active Jobs</Card.Text>
                         </Card.Body>
                     </>
                 }
