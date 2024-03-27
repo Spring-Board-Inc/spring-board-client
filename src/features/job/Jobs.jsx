@@ -14,7 +14,7 @@ const Jobs = () => {
     const [pageNumber, setPageNumber] = useState(1)
     const [searchTerm, setSearchTerm] = useState('')
     const { data: jobs, isLoading, isError, error } = useGetJobsQuery({pageNumber, searchTerm});
-
+    console.log(error)
     useEffect(() => {
         if(isError){
             toast.error(error?.data?.Message);

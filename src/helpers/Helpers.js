@@ -2,7 +2,7 @@ import { differenceInMonths, parseISO } from "date-fns";
 
 export const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,200}$/;
 export const DUMMY_USER_PHOTO = 'https://th.bing.com/th/id/OIP.qWxWnrBHWhc8nexK2HjpdwAAAA?pid=ImgDet&rs=1';
-export const BASE_URL = 'http://ojotobarprojects-001-site1.itempurl.com/api';//'https://localhost:7175/api'//'https://spring-board-api.azurewebsites.net/api';
+export const BASE_URL = 'http://springboard-project.somee.com/api';
 export const MIN_DATE = "0001-01-01T00:00:00";
 
 export const capitalize = (word) => {
